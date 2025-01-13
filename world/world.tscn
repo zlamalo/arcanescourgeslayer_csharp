@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmoxca378xo46"]
+
+[ext_resource type="Texture2D" uid="uid://bhxbflvkjwja5" path="res://icon.svg" id="1_ugkfd"]
+[ext_resource type="PackedScene" uid="uid://b6aehpax266r5" path="res://entities/player/player.tscn" id="2_56vv8"]
+
+[node name="World" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, 7.62939e-06)
+scale = Vector2(10.25, 5.90625)
+texture = ExtResource("1_ugkfd")
+
+[node name="Player" parent="." instance=ExtResource("2_56vv8")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
