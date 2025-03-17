@@ -1,15 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmoxca378xo46"]
+[gd_scene load_steps=5 format=3 uid="uid://bmoxca378xo46"]
 
 [ext_resource type="Texture2D" uid="uid://bhxbflvkjwja5" path="res://icon.svg" id="1_ugkfd"]
 [ext_resource type="PackedScene" uid="uid://b6aehpax266r5" path="res://entities/player/player.tscn" id="2_56vv8"]
+[ext_resource type="PackedScene" uid="uid://dpyc2drdkgcax" path="res://ui/player_ui.tscn" id="3_7jgde"]
+[ext_resource type="PackedScene" uid="uid://c0u1h3a5d1i45" path="res://entities/static/dummy.tscn" id="4_yb53x"]
 
 [node name="World" type="Node2D"]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("3_7jgde")]
+anchors_preset = 15
+anchor_top = 0.0
+offset_top = 0.0
+size_flags_horizontal = 8
+
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(0, 7.62939e-06)
-scale = Vector2(10.25, 5.90625)
+position = Vector2(-1.52588e-05, 4)
+scale = Vector2(3, 1.9375)
 texture = ExtResource("1_ugkfd")
 
 [node name="Player" parent="." instance=ExtResource("2_56vv8")]
+position = Vector2(576, 328)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Dummy" parent="." instance=ExtResource("4_yb53x")]
+position = Vector2(960, 240)
+
+[node name="Dummy2" parent="." instance=ExtResource("4_yb53x")]
+position = Vector2(880, 240)
+
+[node name="Dummy3" parent="." instance=ExtResource("4_yb53x")]
+position = Vector2(792, 248)

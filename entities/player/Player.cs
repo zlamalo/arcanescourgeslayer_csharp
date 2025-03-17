@@ -4,6 +4,13 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	public const float Speed = 500.0f;
+	private Deck deck;
+
+	public override void _Ready()
+	{
+		base._Ready();
+		deck = new(this);
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -14,8 +21,19 @@ public partial class Player : CharacterBody2D
 		{
 			velocity = direction * Speed;
 		}
-		else{
+		else
+		{
 			velocity = Vector2.Zero;
+		}
+
+		if (Input.IsActionJustPressed("ui_left_mouse_button"))
+		{
+			deck.PlayCard(0);
+		}
+
+		if (Input.IsActionJustPressed("ui_right_mouse_button"))
+		{
+			deck.PlayCard(1);
 		}
 
 		Velocity = velocity;

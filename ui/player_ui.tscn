@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpyc2drdkgcax"]
+
+[ext_resource type="PackedScene" uid="uid://dwp3t6xntbyq5" path="res://ui/card_ui.tscn" id="1_jc62d"]
+[ext_resource type="Script" path="res://ui/PlayerUi.cs" id="1_te7q5"]
+[ext_resource type="Script" path="res://ui/CardHandUI.cs" id="2_ea5se"]
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_te7q5")
+
+[node name="BottomUI" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CardHand" type="HBoxContainer" parent="BottomUI"]
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("2_ea5se")
+
+[node name="CardUI" parent="BottomUI/CardHand" instance=ExtResource("1_jc62d")]
+layout_mode = 2
+
+[node name="CardUI2" parent="BottomUI/CardHand" instance=ExtResource("1_jc62d")]
+layout_mode = 2
+
+[node name="CardUI3" parent="BottomUI/CardHand" instance=ExtResource("1_jc62d")]
+layout_mode = 2
+
+[node name="CardUI4" parent="BottomUI/CardHand" instance=ExtResource("1_jc62d")]
+layout_mode = 2
+
+[node name="Deck" type="HBoxContainer" parent="BottomUI"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="DeckSize" type="Label" parent="BottomUI/Deck"]
+layout_mode = 2
