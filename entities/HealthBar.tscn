@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://s3y3nc40v7hc"]
+
+[ext_resource type="Script" path="res://entities/HealthBar.cs" id="1_kdlcp"]
+
+[sub_resource type="Gradient" id="Gradient_nque6"]
+offsets = PackedFloat32Array(0.408451)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_toe4j"]
+gradient = SubResource("Gradient_nque6")
+height = 8
+fill_from = Vector2(1, 0)
+
+[sub_resource type="Gradient" id="Gradient_pnchr"]
+colors = PackedColorArray(0, 0.648659, 0.138066, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l5r1y"]
+gradient = SubResource("Gradient_pnchr")
+height = 8
+fill_from = Vector2(1, 0)
+
+[node name="HealthBar" type="TextureProgressBar"]
+anchors_preset = -1
+offset_left = -32.0
+offset_top = -8.0
+offset_right = 32.0
+pivot_offset = Vector2(32, 8)
+size_flags_horizontal = 0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_toe4j")
+texture_progress = SubResource("GradientTexture2D_l5r1y")
+script = ExtResource("1_kdlcp")
