@@ -18,7 +18,7 @@ public partial class CardHandUI : HBoxContainer
 	private void OnCardInHandUpdated(int placeInHand, ICard addedCard)
 	{
 		var cardSprite = GetChild(placeInHand).GetChild<Sprite2D>(0);
-		var cardTexture = (Texture2D)GD.Load($"res://cards/{addedCard.CardName}.png");
+		var cardTexture = (Texture2D)GD.Load($"res://assets/cards/{addedCard.CardName}.png");
 		cardSprite.Texture = cardTexture;
 
 	}

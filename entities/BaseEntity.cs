@@ -13,8 +13,8 @@ public abstract partial class BaseEntity : CharacterBody2D
     {
         base._Ready();
         healthBar = healthBarScene.Instantiate() as HealthBar;
-        this.AddChild(healthBar);
-        healthBar.Position = new Vector2(-32, -48);
+        AddChild(healthBar);
+        healthBar.Position = new Vector2(-8, -12);
         healthBar.MaxValue = hp;
         healthBar.Value = hp;
     }
@@ -34,16 +34,16 @@ public abstract partial class BaseEntity : CharacterBody2D
     {
         Label number = new()
         {
+            //GlobalPosition = new Vector2(0, -50),
             Text = damageValue.ToString(),
             LabelSettings = new()
             {
-                FontSize = GD.RandRange(18, 25)
+                FontSize = GD.RandRange(8, 12)
             },
         };
 
-        number.Position = GlobalPosition + new Vector2(-number.LabelSettings.FontSize / 2, -60);
+        number.GlobalPosition = /*Position +*/ new Vector2(-number.LabelSettings.FontSize / 2, -20);
         AddChild(number);
-
 
         //Create tween animation
 
@@ -51,8 +51,8 @@ public abstract partial class BaseEntity : CharacterBody2D
         tween.SetParallel(true);
 
         Vector2 newPosition = new Vector2(
-            number.GlobalPosition.X + GD.RandRange(-15, 15),
-            number.GlobalPosition.Y - GD.RandRange(20, 30)
+            number.GlobalPosition.X + GD.RandRange(-7, 7),
+            number.GlobalPosition.Y - GD.RandRange(10, 15)
         );
         tween.TweenProperty(number, "global_position", newPosition, 0.25f);
         tween.TweenProperty(number, "scale", new Vector2(0.5f, 0.5f), 0.25f).SetEase(Tween.EaseType.In).SetDelay(0.3f);

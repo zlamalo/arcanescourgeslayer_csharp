@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wv2onuyonrhn"
-path="res://.godot/imported/fireball.png-22ece27804240167cc7cfb9189f97098.ctex"
+uid="uid://c6e7040dijvub"
+path="res://.godot/imported/tileset.png-eeaca570bd45a3dca497436b11fe25ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://effects/projectiles/fireball.png"
-dest_files=["res://.godot/imported/fireball.png-22ece27804240167cc7cfb9189f97098.ctex"]
+source_file="res://assets/world/tileset.png"
+dest_files=["res://.godot/imported/tileset.png-eeaca570bd45a3dca497436b11fe25ca.ctex"]
 
 [params]
 

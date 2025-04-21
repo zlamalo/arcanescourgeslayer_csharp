@@ -1,9 +1,18 @@
 using Godot;
 
-public class BlockCard : Card
+public class BlockCard : ICard
 {
-    public BlockCard(CharacterBody2D owner) : base(owner)
+    public string CardName => "block_card";
+
+    public CharacterBody2D CardCaster { get; }
+
+    public BlockCard(CharacterBody2D owner)
     {
-        cardName = "block_card";
+        CardCaster = owner;
+    }
+
+    public void Cast()
+    {
+        GD.Print("blocked");
     }
 }

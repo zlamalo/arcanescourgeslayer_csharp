@@ -3,7 +3,7 @@ using System;
 
 public partial class Player : BaseEntity
 {
-	public const float Speed = 500.0f;
+	public const float Speed = 200.0f;
 	private Deck deck;
 
 	private int _hp = 25;
@@ -37,6 +37,16 @@ public partial class Player : BaseEntity
 		if (Input.IsActionJustPressed("ui_right_mouse_button"))
 		{
 			deck.PlayCard(1);
+		}
+
+		if (Input.IsActionJustPressed("ui_Q"))
+		{
+			deck.PlayCard(2);
+		}
+
+		if (Input.IsActionJustPressed("ui_E"))
+		{
+			deck.PlayCard(3);
 		}
 
 		Velocity = velocity;

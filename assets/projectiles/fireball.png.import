@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8al4ulv4kdcx"
-path="res://.godot/imported/fireball_card.png-9979e6afe566d3e9df8fbfd94a0b1225.ctex"
+uid="uid://cue7mqveoah4b"
+path="res://.godot/imported/fireball.png-bb07ffd541eb12971c560df40791cbad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://cards/fireball_card.png"
-dest_files=["res://.godot/imported/fireball_card.png-9979e6afe566d3e9df8fbfd94a0b1225.ctex"]
+source_file="res://assets/projectiles/fireball.png"
+dest_files=["res://.godot/imported/fireball.png-bb07ffd541eb12971c560df40791cbad.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@ using Godot;
 public partial class Projectile : DamageEffect
 {
     protected Vector2 direction;
-    private int speed = 600;
+    private int speed = 300;
 
     private int pierce = 2;
 

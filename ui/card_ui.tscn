@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dwp3t6xntbyq5"]
 
 [ext_resource type="Script" path="res://ui/CardUi.cs" id="1_rmjqk"]
-[ext_resource type="Texture2D" uid="uid://btn5lgqq2xpb" path="res://cards/buff_card.png" id="2_wa00g"]
+[ext_resource type="Texture2D" uid="uid://c5m125t7rdorc" path="res://assets/cards/buff_card.png" id="2_4xecs"]
 
 [sub_resource type="Animation" id="Animation_j1t3d"]
 resource_name = "Deselect"
@@ -58,19 +58,19 @@ _data = {
 }
 
 [node name="CardUI" type="Container"]
-custom_minimum_size = Vector2(64, 96)
+custom_minimum_size = Vector2(16, 24)
 anchors_preset = -1
-anchor_right = 0.0555556
-anchor_bottom = 0.148148
+anchor_right = 0.05
+anchor_bottom = 0.133
+offset_bottom = 0.0599995
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
 script = ExtResource("1_rmjqk")
-metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_wa00g")
-offset = Vector2(32, 48)
+texture = ExtResource("2_4xecs")
+offset = Vector2(8, 12)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

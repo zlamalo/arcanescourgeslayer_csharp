@@ -25,6 +25,8 @@ public partial class Deck
     {
         ICard cardToPlay = cardsInHand[placeInHand];
         cardToPlay.Cast();
+        RemoveCardInHand(placeInHand);
+        PutCardInHand(placeInHand);
     }
 
     private void LoadStarterDeck()
@@ -34,9 +36,9 @@ public partial class Deck
         cards.Add(new FireballCard(deckOwner));
         cards.Add(new FireballCard(deckOwner));
         cards.Add(new FireballCard(deckOwner));
-        // cards.Add(new BlockCard(deckOwner));
-        // cards.Add(new BlockCard(deckOwner));
-        // cards.Add(new BlockCard(deckOwner));
+        cards.Add(new BlockCard(deckOwner));
+        cards.Add(new BlockCard(deckOwner));
+        cards.Add(new BlockCard(deckOwner));
     }
 
     private void PutCardInHand(int placeInHand)
@@ -47,6 +49,12 @@ public partial class Deck
             cardsInHand[placeInHand] = cardToPutInHand;
             EventManager.CardInHandUpdated?.Invoke(placeInHand, cardToPutInHand);
         }
+    }
+
+    private void RemoveCardInHand(int placeInHand)
+    {
+        cards.Add(cardsInHand[placeInHand]);
+        cardsInHand[placeInHand] = null;
     }
 
     private ICard DrawCard()
