@@ -1,9 +1,11 @@
 using Godot;
 
-public partial class Projectile : DamageEffect
+public partial class Projectile : Area2D, IDamageEffect
 {
     protected Vector2 direction;
     private int speed = 300;
+
+    public int damage { get => 20; }
 
     private int pierce = 2;
 

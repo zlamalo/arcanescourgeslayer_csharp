@@ -1,7 +1,7 @@
 using Godot;
 
-public partial class DamageEffect : Area2D
+public partial class DamageEffect : Area2D, IDamageEffect
 {
-    public int damage = 20;
+    public int damage { get => 20; }
 
 }

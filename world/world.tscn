@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://bmoxca378xo46"]
+[gd_scene load_steps=10 format=4 uid="uid://bmoxca378xo46"]
 
 [ext_resource type="Texture2D" uid="uid://0slj8e5yhdld" path="res://assets/world/defaultmap.png" id="1_736fy"]
 [ext_resource type="Texture2D" uid="uid://c6e7040dijvub" path="res://assets/world/tileset.png" id="2_3lvd1"]
 [ext_resource type="PackedScene" uid="uid://b6aehpax266r5" path="res://entities/player/player.tscn" id="2_56vv8"]
 [ext_resource type="PackedScene" uid="uid://dpyc2drdkgcax" path="res://ui/player_ui.tscn" id="3_7jgde"]
 [ext_resource type="PackedScene" uid="uid://c0u1h3a5d1i45" path="res://entities/static/dummy.tscn" id="4_yb53x"]
+[ext_resource type="PackedScene" uid="uid://cs0e4kcc67vha" path="res://entities/enemies/wraith.tscn" id="6_2d6c4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_guqi5"]
 texture = ExtResource("1_736fy")
@@ -57,8 +58,8 @@ texture = ExtResource("2_3lvd1")
 1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -6.625, 6.5)
 
 [sub_resource type="TileSet" id="TileSet_hhh1x"]
-physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 2
+physics_layer_0/collision_layer = 0
+physics_layer_0/collision_mask = 0
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
@@ -84,9 +85,10 @@ tile_map_data = PackedByteArray("AADl/+n/AQACAAMAAADl/+r/AQADAAIAAADl/+v/AQADAAE
 tile_set = SubResource("TileSet_hhh1x")
 
 [node name="Player" parent="World" instance=ExtResource("2_56vv8")]
-position = Vector2(640, 360)
+position = Vector2(24, 0)
 
 [node name="Camera2D" type="Camera2D" parent="World/Player"]
+visible = false
 
 [node name="Dummy" parent="World" instance=ExtResource("4_yb53x")]
 position = Vector2(816, 336)
@@ -96,3 +98,23 @@ position = Vector2(784, 336)
 
 [node name="Dummy3" parent="World" instance=ExtResource("4_yb53x")]
 position = Vector2(752, 336)
+
+[node name="Wraith" parent="World" instance=ExtResource("6_2d6c4")]
+position = Vector2(-232, 0)
+
+[node name="Dummy4" parent="World" instance=ExtResource("4_yb53x")]
+
+[node name="Wraith2" parent="World" instance=ExtResource("6_2d6c4")]
+position = Vector2(-176, -152)
+
+[node name="Wraith3" parent="World" instance=ExtResource("6_2d6c4")]
+position = Vector2(0, -216)
+
+[node name="Wraith4" parent="World" instance=ExtResource("6_2d6c4")]
+position = Vector2(160, -152)
+
+[node name="Wraith5" parent="World" instance=ExtResource("6_2d6c4")]
+position = Vector2(0, 192)
+
+[node name="Wraith6" parent="World" instance=ExtResource("6_2d6c4")]
+position = Vector2(-152, 136)

@@ -1,4 +1,3 @@
-using System.Drawing;
 using Godot;
 
 public abstract partial class BaseEntity : CharacterBody2D
@@ -28,6 +27,12 @@ public abstract partial class BaseEntity : CharacterBody2D
         {
             QueueFree();
         }
+    }
+
+    public void OnHitboxEntered(Area2D area)
+    {
+        var damageSource = area as IDamageEffect;
+        TakeDamage(damageSource.damage);
     }
 
     public async void DisplayDamageNumber(int damageValue)
