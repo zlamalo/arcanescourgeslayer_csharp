@@ -4,6 +4,8 @@ public abstract partial class BaseEntity : CharacterBody2D
 {
     private PackedScene healthBarScene = GD.Load<PackedScene>("res://entities/HealthBar.tscn");
 
+    private FontFile font = ResourceLoader.Load<FontFile>("res://assets/PixelFont.TTF");
+
     private HealthBar healthBar;
 
     public abstract int hp { get; set; }
@@ -37,12 +39,15 @@ public abstract partial class BaseEntity : CharacterBody2D
 
     public async void DisplayDamageNumber(int damageValue)
     {
+        GD.Print(font);
+
         Label number = new()
         {
             //GlobalPosition = new Vector2(0, -50),
             Text = damageValue.ToString(),
             LabelSettings = new()
             {
+                Font = font,
                 FontSize = GD.RandRange(8, 12)
             },
         };

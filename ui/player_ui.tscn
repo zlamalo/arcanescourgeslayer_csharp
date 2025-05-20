@@ -1,10 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpyc2drdkgcax"]
+[gd_scene load_steps=6 format=3 uid="uid://dpyc2drdkgcax"]
 
 [ext_resource type="PackedScene" uid="uid://dwp3t6xntbyq5" path="res://ui/card_ui.tscn" id="1_jc62d"]
 [ext_resource type="Script" path="res://ui/PlayerUi.cs" id="1_te7q5"]
 [ext_resource type="Script" path="res://ui/CardHandUI.cs" id="2_ea5se"]
+[ext_resource type="FontFile" uid="uid://lnxn7lyi65nn" path="res://assets/PixelFont.TTF" id="4_mcfcf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h1riw"]
+font = ExtResource("4_mcfcf")
 
 [node name="PlayerUI" type="Control"]
 layout_mode = 3
