@@ -3,6 +3,10 @@ using System;
 
 public partial class Player : BaseEntity
 {
+	private AnimationTree animationTree;
+
+	private AnimationNodeStateMachinePlayback stateMachine;
+
 	public const float Speed = 200.0f;
 	private Deck deck;
 
@@ -13,6 +17,9 @@ public partial class Player : BaseEntity
 	{
 		base._Ready();
 		deck = new(this);
+		animationTree = GetNode<AnimationTree>("AnimationTree");
+		stateMachine = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
+		stateMachine.Travel("Direction");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -48,6 +55,10 @@ public partial class Player : BaseEntity
 		{
 			deck.PlayCard(3);
 		}
+
+		Vector2 mousePos = GetLocalMousePosition();
+		Vector2 dir = mousePos.Normalized();
+		animationTree.Set("parameters/Direction/blend_position", dir);
 
 		Velocity = velocity;
 		MoveAndSlide();
