@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b6aehpax266r5" path="res://entities/player/player.tscn" id="2_56vv8"]
 [ext_resource type="PackedScene" uid="uid://dpyc2drdkgcax" path="res://ui/player_ui.tscn" id="3_7jgde"]
 [ext_resource type="PackedScene" uid="uid://c0u1h3a5d1i45" path="res://entities/static/dummy.tscn" id="4_yb53x"]
-[ext_resource type="PackedScene" uid="uid://cs0e4kcc67vha" path="res://entities/enemies/wraith.tscn" id="6_2d6c4"]
+[ext_resource type="PackedScene" uid="uid://dc8kpipewl0he" path="res://entities/Spawner.tscn" id="6_rfry2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_guqi5"]
 texture = ExtResource("1_736fy")
@@ -87,34 +87,19 @@ tile_set = SubResource("TileSet_hhh1x")
 [node name="Player" parent="World" instance=ExtResource("2_56vv8")]
 position = Vector2(24, 0)
 
+[node name="Spawner" parent="World/Player" instance=ExtResource("6_rfry2")]
+position = Vector2(-24, 0)
+
 [node name="Camera2D" type="Camera2D" parent="World/Player"]
 visible = false
 
 [node name="Dummy" parent="World" instance=ExtResource("4_yb53x")]
-position = Vector2(816, 336)
+position = Vector2(184, 0)
 
 [node name="Dummy2" parent="World" instance=ExtResource("4_yb53x")]
-position = Vector2(784, 336)
+position = Vector2(152, 0)
 
 [node name="Dummy3" parent="World" instance=ExtResource("4_yb53x")]
-position = Vector2(752, 336)
-
-[node name="Wraith" parent="World" instance=ExtResource("6_2d6c4")]
-position = Vector2(-232, 0)
+position = Vector2(120, 0)
 
 [node name="Dummy4" parent="World" instance=ExtResource("4_yb53x")]
-
-[node name="Wraith2" parent="World" instance=ExtResource("6_2d6c4")]
-position = Vector2(-176, -152)
-
-[node name="Wraith3" parent="World" instance=ExtResource("6_2d6c4")]
-position = Vector2(0, -216)
-
-[node name="Wraith4" parent="World" instance=ExtResource("6_2d6c4")]
-position = Vector2(160, -152)
-
-[node name="Wraith5" parent="World" instance=ExtResource("6_2d6c4")]
-position = Vector2(0, 192)
-
-[node name="Wraith6" parent="World" instance=ExtResource("6_2d6c4")]
-position = Vector2(-152, 136)
