@@ -5,7 +5,7 @@ public class FireballCard : ICard
 {
     private PackedScene fireballScene = GD.Load<PackedScene>("res://effects/projectiles/Fireball.tscn");
 
-    public string CardName => "fireball_card";
+    public string CardName => "FireballCard";
 
     public CharacterBody2D CardCaster { get; }
 

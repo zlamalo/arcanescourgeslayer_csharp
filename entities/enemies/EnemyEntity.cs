@@ -4,18 +4,18 @@ public abstract partial class EnemyEntity : BaseEntity
 {
     public abstract float Speed { get; }
 
-    CharacterBody2D player;
+    public CharacterBody2D Player;
     public override void _Ready()
     {
         base._Ready();
-        player = GetParent().GetNode<CharacterBody2D>("Player");
+        Player = GetParent().GetNode<CharacterBody2D>("Player");
     }
 
     public void FollowPlayer()
     {
-        if (player != null)
+        if (Player != null)
         {
-            Vector2 directionToPlayer = (player.GlobalPosition - GlobalPosition).Normalized();
+            Vector2 directionToPlayer = (Player.GlobalPosition - GlobalPosition).Normalized();
             Velocity = directionToPlayer * Speed;
             MoveAndSlide();
         }

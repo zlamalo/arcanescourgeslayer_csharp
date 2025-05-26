@@ -2,7 +2,7 @@ using Godot;
 
 public class BlockCard : ICard
 {
-    public string CardName => "block_card";
+    public string CardName => "BlockCard";
 
     public CharacterBody2D CardCaster { get; }
 

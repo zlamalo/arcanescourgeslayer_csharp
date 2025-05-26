@@ -16,6 +16,8 @@ height = 18.0
 radius = 9.05539
 
 [node name="Wraith" type="CharacterBody2D"]
+collision_layer = 256
+collision_mask = 3
 script = ExtResource("1_uxx3h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

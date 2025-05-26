@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d041doitswrys"
-path="res://.godot/imported/fireball_card.png-31f2a18b3395d61c470201b7938e1dcb.ctex"
+uid="uid://dbti0xftmi6ey"
+path="res://.godot/imported/CooldownCard.png-9ffa37740b12b4c9b5f04e152d34f47d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cards/fireball_card.png"
-dest_files=["res://.godot/imported/fireball_card.png-31f2a18b3395d61c470201b7938e1dcb.ctex"]
+source_file="res://assets/cards/CooldownCard.png"
+dest_files=["res://.godot/imported/CooldownCard.png-9ffa37740b12b4c9b5f04e152d34f47d.ctex"]
 
 [params]
 

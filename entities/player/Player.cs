@@ -7,6 +7,8 @@ public partial class Player : BaseEntity
 
 	private AnimationNodeStateMachinePlayback stateMachine;
 
+	private Node2D hands;
+
 	public const float Speed = 200.0f;
 	private Deck deck;
 
@@ -20,6 +22,8 @@ public partial class Player : BaseEntity
 		animationTree = GetNode<AnimationTree>("AnimationTree");
 		stateMachine = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
 		stateMachine.Travel("Direction");
+
+		hands = GetNode<Node2D>("Hands");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -59,6 +63,26 @@ public partial class Player : BaseEntity
 		Vector2 mousePos = GetLocalMousePosition();
 		Vector2 dir = mousePos.Normalized();
 		animationTree.Set("parameters/Direction/blend_position", dir);
+		var globalMousePosition = GetGlobalMousePosition();
+		hands.LookAt(globalMousePosition);
+		var angle = GetAngleTo(globalMousePosition);
+		var pi = Math.PI;
+		if (angle < -pi / 4 || angle > 3 * pi / 4)
+		{
+			hands.GetNode<Sprite2D>("RightHand").ZIndex = -1;
+		}
+		else
+		{
+			hands.GetNode<Sprite2D>("RightHand").ZIndex = 1;
+		}
+		if (angle < pi / 4 && angle > -3 * pi / 4)
+		{
+			hands.GetNode<Sprite2D>("LeftHand").ZIndex = -1;
+		}
+		else
+		{
+			hands.GetNode<Sprite2D>("LeftHand").ZIndex = 1;
+		}
 
 		Velocity = velocity;
 		MoveAndSlide();
