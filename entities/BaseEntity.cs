@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public abstract partial class BaseEntity : CharacterBody2D
@@ -8,7 +9,9 @@ public abstract partial class BaseEntity : CharacterBody2D
 
     private HealthBar healthBar;
 
-    public abstract int hp { get; set; }
+    public abstract int Hp { get; set; }
+
+    public int MaxHp { get; set; }
 
     public override void _Ready()
     {
@@ -16,19 +19,28 @@ public abstract partial class BaseEntity : CharacterBody2D
         healthBar = healthBarScene.Instantiate() as HealthBar;
         AddChild(healthBar);
         healthBar.Position = new Vector2(-8, -12);
-        healthBar.MaxValue = hp;
-        healthBar.Value = hp;
+        healthBar.MaxValue = Hp;
+        MaxHp = Hp;
+        healthBar.Value = Hp;
     }
 
     public void TakeDamage(int damage)
     {
-        hp -= damage;
-        DisplayDamageNumber(damage);
-        healthBar.Value = hp;
-        if (hp <= 0)
+        Hp -= damage;
+        DisplayNumber(damage, new Color(150, 0, 0));
+        healthBar.Value = Hp;
+        if (Hp <= 0)
         {
             QueueFree();
         }
+    }
+
+    public void Heal(int healAmount)
+    {
+        var healingDone = Math.Min(healAmount, MaxHp - Hp);
+        Hp += healingDone;
+        healthBar.Value = Hp;
+        DisplayNumber(healingDone, new Color(0, 150, 0));
     }
 
     public void OnHitboxEntered(Area2D area)
@@ -37,17 +49,16 @@ public abstract partial class BaseEntity : CharacterBody2D
         TakeDamage(damageSource.damage);
     }
 
-    public async void DisplayDamageNumber(int damageValue)
+    public async void DisplayNumber(int value, Color numberColor)
     {
-        GD.Print(font);
-
         Label number = new()
         {
             //GlobalPosition = new Vector2(0, -50),
-            Text = damageValue.ToString(),
+            Text = value.ToString(),
             LabelSettings = new()
             {
                 Font = font,
+                FontColor = numberColor,
                 FontSize = GD.RandRange(8, 12)
             },
         };

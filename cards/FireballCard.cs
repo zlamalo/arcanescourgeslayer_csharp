@@ -7,9 +7,9 @@ public class FireballCard : ICard
 
     public string CardName => "FireballCard";
 
-    public CharacterBody2D CardCaster { get; }
+    public BaseEntity CardCaster { get; }
 
-    public FireballCard(CharacterBody2D owner)
+    public FireballCard(BaseEntity owner)
     {
         CardCaster = owner;
     }

@@ -4,7 +4,7 @@ using System;
 public partial class Wraith : EnemyEntity
 {
     private int _hp = 250;
-    public override int hp { get => _hp; set => _hp = value; }
+    public override int Hp { get => _hp; set => _hp = value; }
     public override float Speed { get => 100; }
 
     private float time = 0;

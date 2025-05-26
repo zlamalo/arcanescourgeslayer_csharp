@@ -3,7 +3,7 @@ using Godot;
 public interface ICard
 {
     string CardName { get; }
-    CharacterBody2D CardCaster { get; }
+    BaseEntity CardCaster { get; }
 
     void Cast();
 }

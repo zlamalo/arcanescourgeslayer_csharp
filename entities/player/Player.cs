@@ -12,8 +12,8 @@ public partial class Player : BaseEntity
 	public const float Speed = 200.0f;
 	private Deck deck;
 
-	private int _hp = 25;
-	public override int hp { get => _hp; set => _hp = value; }
+	private int _hp = 100;
+	public override int Hp { get => _hp; set => _hp = value; }
 
 	public override void _Ready()
 	{

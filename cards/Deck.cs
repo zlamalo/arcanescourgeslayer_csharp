@@ -8,9 +8,9 @@ public partial class Deck
     private List<ICard> cards = new List<ICard>();
     private int handSize = 4;
     private List<ICard> cardsInHand = new List<ICard>();
-    private CharacterBody2D deckOwner;
+    private BaseEntity deckOwner;
 
-    public Deck(CharacterBody2D owner)
+    public Deck(BaseEntity owner)
     {
         deckOwner = owner;
         LoadStarterDeck();
@@ -36,9 +36,12 @@ public partial class Deck
         cards.Add(new FireballCard(deckOwner));
         cards.Add(new FireballCard(deckOwner));
         cards.Add(new FireballCard(deckOwner));
-        cards.Add(new BlockCard(deckOwner));
-        cards.Add(new BlockCard(deckOwner));
-        cards.Add(new BlockCard(deckOwner));
+        // cards.Add(new BlockCard(deckOwner));
+        // cards.Add(new BlockCard(deckOwner));
+        // cards.Add(new BlockCard(deckOwner));
+        cards.Add(new HealCard(deckOwner));
+        cards.Add(new HealCard(deckOwner));
+        cards.Add(new HealCard(deckOwner));
     }
 
     private void PutCardInHand(int placeInHand)
