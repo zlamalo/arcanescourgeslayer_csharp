@@ -1,13 +1,17 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public abstract partial class BaseEntity : CharacterBody2D
 {
     private PackedScene healthBarScene = GD.Load<PackedScene>("res://entities/HealthBar.tscn");
 
-    private FontFile font = ResourceLoader.Load<FontFile>("res://assets/PixelFont.TTF");
+    private PackedScene effectNumberScene = GD.Load<PackedScene>("res://visualEffects/EffectNumber.tscn");
 
     private HealthBar healthBar;
+
+    public List<IBuff> attackBuffs = new();
 
     public abstract int Hp { get; set; }
 
@@ -27,7 +31,7 @@ public abstract partial class BaseEntity : CharacterBody2D
     public void TakeDamage(int damage)
     {
         Hp -= damage;
-        DisplayNumber(damage, new Color(150, 0, 0));
+        DisplayNumber(damage, Colors.Orange);
         healthBar.Value = Hp;
         if (Hp <= 0)
         {
@@ -38,48 +42,47 @@ public abstract partial class BaseEntity : CharacterBody2D
     public void Heal(int healAmount)
     {
         var healingDone = Math.Min(healAmount, MaxHp - Hp);
-        Hp += healingDone;
-        healthBar.Value = Hp;
-        DisplayNumber(healingDone, new Color(0, 150, 0));
+        if (healingDone > 0)
+        {
+            Hp += healingDone;
+            healthBar.Value = Hp;
+            DisplayNumber(healingDone, Colors.Green);
+        }
     }
 
     public void OnHitboxEntered(Area2D area)
     {
         var damageSource = area as IDamageEffect;
-        TakeDamage(damageSource.damage);
+        if (damageSource != null)
+        {
+            TakeDamage(damageSource.damage);
+        }
+        else
+        {
+            GD.Print(this.Name);
+            GD.Print(area.Name);
+        }
+
     }
 
-    public async void DisplayNumber(int value, Color numberColor)
+    public void AddAttackBuff(IBuff buff)
     {
-        Label number = new()
-        {
-            //GlobalPosition = new Vector2(0, -50),
-            Text = value.ToString(),
-            LabelSettings = new()
-            {
-                Font = font,
-                FontColor = numberColor,
-                FontSize = GD.RandRange(8, 12)
-            },
-        };
+        GD.Print("buffed");
+        attackBuffs.Add(buff);
+        EventManager.BuffsUpdated(1, buff);
+    }
 
-        number.GlobalPosition = /*Position +*/ new Vector2(-number.LabelSettings.FontSize / 2, -20);
-        AddChild(number);
+    public void Clearbuffs()
+    {
+        attackBuffs.ForEach(b => EventManager.BuffsUpdated(0, b));
+        attackBuffs.Clear();
+    }
 
-        //Create tween animation
-
-        var tween = GetTree().CreateTween();
-        tween.SetParallel(true);
-
-        Vector2 newPosition = new Vector2(
-            number.GlobalPosition.X + GD.RandRange(-7, 7),
-            number.GlobalPosition.Y - GD.RandRange(10, 15)
-        );
-        tween.TweenProperty(number, "global_position", newPosition, 0.25f);
-        tween.TweenProperty(number, "scale", new Vector2(0.5f, 0.5f), 0.25f).SetEase(Tween.EaseType.In).SetDelay(0.3f);
-
-        await ToSignal(tween, "finished");
-        number.QueueFree();
-
+    public void DisplayNumber(int value, Color numberColor)
+    {
+        var number = effectNumberScene.Instantiate<EffectNumber>();
+        var position = Position + new Vector2(-5, -20);
+        number.Initialize(position, value, numberColor);
+        GetParent().AddChild(number);
     }
 }

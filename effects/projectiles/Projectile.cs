@@ -9,11 +9,13 @@ public partial class Projectile : Area2D, IDamageEffect
 
     private int pierce = 2;
 
+    private BaseEntity caster;
+
     public Projectile()
     {
 
     }
-    public Projectile(CharacterBody2D caster, Vector2 direction)
+    public Projectile(BaseEntity caster, Vector2 direction)
     {
         GlobalPosition = caster.GlobalPosition;
         this.direction = direction;
@@ -25,10 +27,11 @@ public partial class Projectile : Area2D, IDamageEffect
     /// </summary>
     /// <param name="caster"></param>
     /// <param name="direction"></param>
-    public void Initialize(CharacterBody2D caster, Vector2 direction)
+    public void Initialize(BaseEntity caster, Vector2 direction)
     {
         GlobalPosition = caster.GlobalPosition;
         this.direction = direction;
+        this.caster = caster;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -40,6 +43,12 @@ public partial class Projectile : Area2D, IDamageEffect
 
     public void OnProjectileHit(Area2D area)
     {
+        var buffs = caster.attackBuffs;
+        if (buffs.Count > 0)
+        {
+            buffs.ForEach(x => x.CastBuffEffect(this));
+            caster.Clearbuffs();
+        }
         pierce--;
         if (pierce <= 0)
         {

@@ -8,6 +8,6 @@ public partial class Fireball : Projectile
 	{
 
 	}
-	public Fireball(CharacterBody2D caster, Vector2 direction) : base(caster, direction)
+	public Fireball(BaseEntity caster, Vector2 direction) : base(caster, direction)
 	{ }
 }

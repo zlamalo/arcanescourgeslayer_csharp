@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://2wwcm1dic3v"]
+
+[ext_resource type="FontFile" uid="uid://lnxn7lyi65nn" path="res://assets/PixelFont.TTF" id="1_csuhg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dmndd"]
+font = ExtResource("1_csuhg")
+font_size = 8
+
+[node name="BuffUI" type="Control"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 3
+anchor_right = 0.007
+anchor_bottom = 0.019
+offset_right = -0.0640001
+offset_bottom = -0.312001
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BuffIcon" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Icon" type="Sprite2D" parent="BuffIcon"]
+position = Vector2(4, 4)
+
+[node name="BuffLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 0.667
+offset_top = 8.0
+offset_right = 4.0
+offset_bottom = 22.996
+scale = Vector2(0.35, 0.35)
+label_settings = SubResource("LabelSettings_dmndd")

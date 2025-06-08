@@ -11,13 +11,15 @@ public abstract partial class EnemyEntity : BaseEntity
         Player = GetParent().GetNode<CharacterBody2D>("Player");
     }
 
-    public void FollowPlayer()
+    public override void _PhysicsProcess(double delta)
     {
+        base._PhysicsProcess(delta);
+
         if (Player != null)
         {
             Vector2 directionToPlayer = (Player.GlobalPosition - GlobalPosition).Normalized();
             Velocity = directionToPlayer * Speed;
-            MoveAndSlide();
+            MoveAndCollide(Velocity);
         }
     }
 }

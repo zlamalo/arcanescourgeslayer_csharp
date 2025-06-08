@@ -137,6 +137,7 @@ transitions = ["Start", "Direction", SubResource("AnimationNodeStateMachineTrans
 position = Vector2(0, -8)
 collision_layer = 2
 collision_mask = 257
+slide_on_ceiling = false
 script = ExtResource("1_lxq7a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -147,7 +148,7 @@ texture = ExtResource("2_igcre")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 768
+collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CapsuleShape2D_fm7mo")

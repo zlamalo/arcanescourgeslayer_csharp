@@ -10,13 +10,11 @@ font = ExtResource("4_mcfcf")
 
 [node name="PlayerUI" type="Control"]
 layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -24.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 size_flags_vertical = 4
 script = ExtResource("1_te7q5")
 
@@ -55,3 +53,13 @@ size_flags_horizontal = 8
 layout_mode = 2
 text = "aasda"
 label_settings = SubResource("LabelSettings_h1riw")
+
+[node name="UpperUI" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+
+[node name="Buffs" type="HBoxContainer" parent="UpperUI"]
+layout_mode = 2
+
+[node name="NumberOfBuffs" type="Label" parent="UpperUI/Buffs"]
+layout_mode = 2

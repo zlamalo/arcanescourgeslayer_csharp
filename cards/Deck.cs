@@ -35,13 +35,13 @@ public partial class Deck
         cards.Add(new FireballCard(deckOwner));
         cards.Add(new FireballCard(deckOwner));
         cards.Add(new FireballCard(deckOwner));
-        cards.Add(new FireballCard(deckOwner));
         // cards.Add(new BlockCard(deckOwner));
         // cards.Add(new BlockCard(deckOwner));
         // cards.Add(new BlockCard(deckOwner));
         cards.Add(new HealCard(deckOwner));
         cards.Add(new HealCard(deckOwner));
-        cards.Add(new HealCard(deckOwner));
+        cards.Add(new ExplosionBuffCard(deckOwner));
+        cards.Add(new ExplosionBuffCard(deckOwner));
     }
 
     private void PutCardInHand(int placeInHand)
