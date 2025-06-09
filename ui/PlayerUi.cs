@@ -28,7 +28,6 @@ public partial class PlayerUi : Control
 
 	private void OnBuffChanged(int buffCount, IBuff buff)
 	{
-		GD.Print(buff == null);
 		var activeBuffUI = GetNode("UpperUI").GetNode("Buffs").GetNodeOrNull(nameof(buff));
 
 		if (buffCount > 0 && activeBuffUI == null)

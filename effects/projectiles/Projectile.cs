@@ -34,6 +34,15 @@ public partial class Projectile : Area2D, IDamageEffect
         this.caster = caster;
     }
 
+    public override void _Ready()
+    {
+        base._Ready();
+
+        var notifier = new VisibleOnScreenNotifier2D();
+        AddChild(notifier);
+        notifier.Connect("screen_exited", new Callable(this, nameof(OnScreenExited)));
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
@@ -54,5 +63,10 @@ public partial class Projectile : Area2D, IDamageEffect
         {
             QueueFree();
         }
+    }
+
+    private void OnScreenExited()
+    {
+        QueueFree();
     }
 }
