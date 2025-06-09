@@ -15,6 +15,9 @@ public partial class Player : BaseEntity
 	private int _hp = 100;
 	public override int Hp { get => _hp; set => _hp = value; }
 
+	public override int FireResist => -60;
+
+
 	public override void _Ready()
 	{
 		base._Ready();

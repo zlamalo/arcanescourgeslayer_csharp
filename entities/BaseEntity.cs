@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public abstract partial class BaseEntity : CharacterBody2D
+public abstract partial class BaseEntity : CharacterBody2D, IResistances
 {
     private PackedScene healthBarScene = GD.Load<PackedScene>("res://entities/HealthBar.tscn");
 
@@ -16,6 +16,10 @@ public abstract partial class BaseEntity : CharacterBody2D
     public abstract int Hp { get; set; }
 
     public int MaxHp { get; set; }
+    public virtual int FireResist { get => 0; }
+    public virtual int ColdResist { get => 0; }
+    public virtual int LightningResist { get => 0; }
+    public virtual int PoisonResist { get => 0; }
 
     public override void _Ready()
     {
@@ -28,10 +32,29 @@ public abstract partial class BaseEntity : CharacterBody2D
         healthBar.Value = Hp;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(IDamageEffect damage)
     {
-        Hp -= damage;
-        DisplayNumber(damage, Colors.Orange);
+
+        var nonMitigatedDmg = damage.neutralDamage + damage.fireDamage + damage.coldDamage + damage.lightningDamage + damage.poisonDamage;
+        var totalDmg = damage.neutralDamage;
+        totalDmg += (int)(damage.fireDamage * (1 - (double)FireResist / 100));
+        totalDmg += (int)(damage.coldDamage * (1 - (double)ColdResist / 100));
+        totalDmg += (int)(damage.lightningDamage * (1 - (double)LightningResist / 100));
+        totalDmg += (int)(damage.poisonDamage * (1 - (double)PoisonResist / 100));
+
+
+
+        Hp -= totalDmg;
+        var color = Colors.Orange;
+        if (totalDmg < nonMitigatedDmg * 0.75)
+        {
+            color = Colors.Gray;
+        }
+        if (totalDmg > nonMitigatedDmg * 1.25)
+        {
+            color = Colors.Red;
+        }
+        DisplayNumber(totalDmg, color);
         healthBar.Value = Hp;
         if (Hp <= 0)
         {
@@ -53,7 +76,7 @@ public abstract partial class BaseEntity : CharacterBody2D
     public void OnHitboxEntered(Area2D area)
     {
         var damageSource = area as IDamageEffect;
-        TakeDamage(damageSource.damage);
+        TakeDamage(damageSource);
     }
 
     public void AddAttackBuff(IBuff buff)

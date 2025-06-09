@@ -3,6 +3,8 @@ using System;
 
 public partial class Fireball : Projectile
 {
+	public override int fireDamage => 20;
+
 
 	public Fireball()
 	{

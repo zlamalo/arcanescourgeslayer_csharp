@@ -1,4 +1,12 @@
 public interface IDamageEffect
 {
-    int damage { get; }
+    int neutralDamage { get; }
+
+    int fireDamage { get; }
+
+    int coldDamage { get; }
+
+    int lightningDamage { get; }
+
+    int poisonDamage { get; }
 }

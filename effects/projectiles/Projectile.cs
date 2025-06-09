@@ -5,7 +5,15 @@ public partial class Projectile : Area2D, IDamageEffect
     protected Vector2 direction;
     private int speed = 300;
 
-    public int damage { get => 20; }
+    public int neutralDamage { get => 0; }
+
+    public virtual int fireDamage => 0;
+
+    public int coldDamage => 0;
+
+    public int lightningDamage => 0;
+
+    public int poisonDamage => 0;
 
     private int pierce = 2;
 

@@ -5,9 +5,15 @@ public partial class Explosion : AreaEffect, IDamageEffect
 {
     private AnimationPlayer animationPlayer;
 
-    public int damage => 100;
+    public int neutralDamage => 0;
 
+    public int fireDamage => 100;
 
+    public int coldDamage => 0;
+
+    public int lightningDamage => 0;
+
+    public int poisonDamage => 0;
     public override void _Ready()
     {
         base._Ready();

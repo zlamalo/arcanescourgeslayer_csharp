@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3jjc03a2kg8g"]
+
+[ext_resource type="Texture2D" uid="uid://cx16tove18ns4" path="res://assets/entities/FireImp.png" id="1_o5off"]
+[ext_resource type="Script" path="res://entities/enemies/FireImp.cs" id="1_qc248"]
+[ext_resource type="Script" path="res://effects/areaEffect/FireDamageEffect.cs" id="3_83yyp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qph6"]
+radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qs8qj"]
+radius = 7.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q26uq"]
+radius = 7.0
+height = 18.0
+
+[node name="FireImp" type="CharacterBody2D"]
+collision_layer = 256
+collision_mask = 3
+script = ExtResource("1_qc248")
+
+[node name="FireImp" type="Sprite2D" parent="."]
+texture = ExtResource("1_o5off")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_4qph6")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_qs8qj")
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 2
+script = ExtResource("3_83yyp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CapsuleShape2D_q26uq")
+
+[connection signal="area_entered" from="Hitbox" to="." method="OnHitboxEntered"]
