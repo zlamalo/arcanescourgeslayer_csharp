@@ -7,7 +7,6 @@ public partial class PlayerUi : Control
 {
 	public PackedScene buffUI = GD.Load<PackedScene>("res://ui/BuffUI.tscn");
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		EventManager.DeckSizeUpdated += OnDeckSizeUpdated;
@@ -29,7 +28,8 @@ public partial class PlayerUi : Control
 
 	private void OnBuffChanged(int buffCount, IBuff buff)
 	{
-		var activeBuffUI = GetNode("UpperUI").GetNode("Buffs").GetNode(nameof(buff));
+		GD.Print(buff == null);
+		var activeBuffUI = GetNode("UpperUI").GetNode("Buffs").GetNodeOrNull(nameof(buff));
 
 		if (buffCount > 0 && activeBuffUI == null)
 		{
@@ -46,7 +46,7 @@ public partial class PlayerUi : Control
 		}
 		else
 		{
-			activeBuffUI.QueueFree();
+			activeBuffUI?.QueueFree();
 		}
 	}
 }

@@ -20,6 +20,15 @@ public partial class CardHandUI : HBoxContainer
 		var cardSprite = GetChild(placeInHand).GetChild<Sprite2D>(0);
 		var cardTexture = (Texture2D)GD.Load($"res://assets/cards/{addedCard.CardName}.png");
 		cardSprite.Texture = cardTexture;
+	}
 
+	public void OnMouseEntered()
+	{
+		GetTree().Paused = true;
+	}
+
+	public void OnMouseExited()
+	{
+		GetTree().Paused = false;
 	}
 }

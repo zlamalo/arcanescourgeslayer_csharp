@@ -53,21 +53,11 @@ public abstract partial class BaseEntity : CharacterBody2D
     public void OnHitboxEntered(Area2D area)
     {
         var damageSource = area as IDamageEffect;
-        if (damageSource != null)
-        {
-            TakeDamage(damageSource.damage);
-        }
-        else
-        {
-            GD.Print(this.Name);
-            GD.Print(area.Name);
-        }
-
+        TakeDamage(damageSource.damage);
     }
 
     public void AddAttackBuff(IBuff buff)
     {
-        GD.Print("buffed");
         attackBuffs.Add(buff);
         EventManager.BuffsUpdated(1, buff);
     }

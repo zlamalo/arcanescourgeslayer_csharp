@@ -9,6 +9,7 @@
 font = ExtResource("4_mcfcf")
 
 [node name="PlayerUI" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,5 +62,5 @@ anchors_preset = -1
 [node name="Buffs" type="HBoxContainer" parent="UpperUI"]
 layout_mode = 2
 
-[node name="NumberOfBuffs" type="Label" parent="UpperUI/Buffs"]
-layout_mode = 2
+[connection signal="mouse_entered" from="BottomUI/CardHand" to="BottomUI/CardHand" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="BottomUI/CardHand" to="BottomUI/CardHand" method="OnMouseExited"]
