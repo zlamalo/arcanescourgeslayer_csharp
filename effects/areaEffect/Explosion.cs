@@ -1,19 +1,19 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Explosion : AreaEffect, IDamageEffect
 {
     private AnimationPlayer animationPlayer;
 
-    public int neutralDamage => 0;
+    public ElementalValues DamageType => new(new Dictionary<ElementType, int>
+    {
+        {ElementType.Fire, 100}
+    });
 
-    public int fireDamage => 100;
+    public int BaseDamage => 0;
 
-    public int coldDamage => 0;
 
-    public int lightningDamage => 0;
-
-    public int poisonDamage => 0;
     public override void _Ready()
     {
         base._Ready();

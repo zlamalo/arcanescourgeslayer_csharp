@@ -1,10 +1,13 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Fireball : Projectile
 {
-	public override int fireDamage => 20;
-
+	public override ElementalValues DamageType => new(new Dictionary<ElementType, int>
+	{
+		{ElementType.Fire, 20}
+	});
 
 	public Fireball()
 	{

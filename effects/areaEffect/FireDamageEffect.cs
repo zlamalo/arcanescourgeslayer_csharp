@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+
 public partial class FireDamageEffect : DamageEffect
 {
-    public override int neutralDamage => 0;
-
-    public override int fireDamage => 10;
+    public override ElementalValues DamageType => new(new Dictionary<ElementType, int>
+    {
+        {ElementType.Fire, 10}
+    });
 }

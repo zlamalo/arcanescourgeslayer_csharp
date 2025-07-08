@@ -5,17 +5,11 @@ public partial class Projectile : Area2D, IDamageEffect
     protected Vector2 direction;
     private int speed = 300;
 
-    public int neutralDamage { get => 0; }
-
-    public virtual int fireDamage => 0;
-
-    public int coldDamage => 0;
-
-    public int lightningDamage => 0;
-
-    public int poisonDamage => 0;
-
     private int pierce = 2;
+
+    public virtual ElementalValues DamageType => new();
+
+    public int BaseDamage => 0;
 
     private BaseEntity caster;
 

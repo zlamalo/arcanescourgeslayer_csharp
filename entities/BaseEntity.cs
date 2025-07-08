@@ -16,10 +16,8 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
     public abstract int Hp { get; set; }
 
     public int MaxHp { get; set; }
-    public virtual int FireResist { get => 0; }
-    public virtual int ColdResist { get => 0; }
-    public virtual int LightningResist { get => 0; }
-    public virtual int PoisonResist { get => 0; }
+
+    public virtual ElementalValues Resistances => new();
 
     public override void _Ready()
     {
@@ -34,14 +32,22 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
 
     public void TakeDamage(IDamageEffect damage)
     {
+        int totalDmg = damage.BaseDamage;
+        var nonMitigatedDmg = damage.BaseDamage;
+        if (damage.DamageType.RawValues != null)
+        {
+            foreach (var pair in damage.DamageType.RawValues)
+            {
+                var element = pair.Key;
+                var damageAmount = pair.Value;
+                var resist = Resistances[element];
 
-        var nonMitigatedDmg = damage.neutralDamage + damage.fireDamage + damage.coldDamage + damage.lightningDamage + damage.poisonDamage;
-        var totalDmg = damage.neutralDamage;
-        totalDmg += (int)(damage.fireDamage * (1 - (double)FireResist / 100));
-        totalDmg += (int)(damage.coldDamage * (1 - (double)ColdResist / 100));
-        totalDmg += (int)(damage.lightningDamage * (1 - (double)LightningResist / 100));
-        totalDmg += (int)(damage.poisonDamage * (1 - (double)PoisonResist / 100));
+                int mitigated = (int)(damageAmount * (1 - resist / 100.0));
 
+                totalDmg += mitigated;
+                nonMitigatedDmg += damageAmount;
+            }
+        }
 
 
         Hp -= totalDmg;

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player : BaseEntity
 {
@@ -15,7 +16,10 @@ public partial class Player : BaseEntity
 	private int _hp = 100;
 	public override int Hp { get => _hp; set => _hp = value; }
 
-	public override int FireResist => -60;
+	public override ElementalValues Resistances => new(new Dictionary<ElementType, int>
+	{
+		{ElementType.Fire, -80}
+	});
 
 
 	public override void _Ready()
