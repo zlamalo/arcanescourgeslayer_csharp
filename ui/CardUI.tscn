@@ -57,14 +57,16 @@ _data = {
 "Select": SubResource("Animation_0x14c")
 }
 
-[node name="CardUI" type="Container"]
+[node name="CardUI" type="Panel"]
 custom_minimum_size = Vector2(16, 24)
 anchors_preset = -1
-anchor_right = 0.05
-anchor_bottom = 0.133
-offset_bottom = 0.0599995
+anchor_right = 0.014
+anchor_bottom = 0.037
+offset_right = -0.128
+offset_bottom = 0.0240002
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(8, 12)
 size_flags_vertical = 4
 script = ExtResource("1_rmjqk")
 

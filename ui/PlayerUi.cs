@@ -6,11 +6,14 @@ using System.Linq;
 public partial class PlayerUi : Control
 {
 	public PackedScene buffUI = GD.Load<PackedScene>("res://ui/BuffUI.tscn");
+	public PackedScene cardSetUI = GD.Load<PackedScene>("res://ui/CardSetUi.tscn");
 
 	public override void _Ready()
 	{
 		EventManager.DeckSizeUpdated += OnDeckSizeUpdated;
 		EventManager.BuffsUpdated += OnBuffChanged;
+		EventManager.CardInSetUpdated += OnCardAdded;
+		EventManager.SetAdded += OnCardSetAdded;
 	}
 
 	public override void _ExitTree()
@@ -18,6 +21,8 @@ public partial class PlayerUi : Control
 		base._ExitTree();
 		EventManager.DeckSizeUpdated -= OnDeckSizeUpdated;
 		EventManager.BuffsUpdated -= OnBuffChanged;
+		EventManager.CardInSetUpdated += OnCardAdded;
+		EventManager.SetAdded -= OnCardSetAdded;
 	}
 
 	private void OnDeckSizeUpdated(int deckSize)
@@ -47,5 +52,29 @@ public partial class PlayerUi : Control
 		{
 			activeBuffUI?.QueueFree();
 		}
+	}
+
+	private void OnCardSetAdded()
+	{
+		CardSetUi cardSet = cardSetUI.Instantiate() as CardSetUi;
+		var bottomUi = GetNode<PanelContainer>("BottomUI");
+		var cardSets = GetNode("BottomUI").GetNode<Control>("CardSets");
+		cardSets.AddChild(cardSet);
+
+		var sets = cardSets.GetChildren();
+		var numberOfSets = sets.Count;
+		var gap = bottomUi.Size.X / (numberOfSets + 1);
+		for (int i = numberOfSets - 1; i >= 0; i--)
+		{
+			CardSetUi set = (CardSetUi)sets[i];
+			set.OffsetLeft = i * gap;
+		}
+
+	}
+
+	private void OnCardAdded(int cardSet, ICard card)
+	{
+		var cardSetUi = GetNode("BottomUI").GetNode("CardSets").GetChild<CardSetUi>(cardSet);
+		cardSetUi.AddCard(card);
 	}
 }

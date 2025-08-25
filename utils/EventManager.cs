@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public static class EventManager
 {
-    public static Action<int, ICard> CardInHandUpdated;
+    public static Action SetAdded;
+
+    public static Action<int, ICard> CardInSetUpdated;
 
     public static Action<int> DeckSizeUpdated;
 

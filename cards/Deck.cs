@@ -5,28 +5,28 @@ using System.Linq;
 
 public partial class Deck
 {
-    private List<ICard> cards = new List<ICard>();
-    private int handSize = 4;
-    private List<ICard> cardsInHand = new List<ICard>();
+    private List<ICard> cards = new();
+    private List<CardSet> cardSets = new();
     private BaseEntity deckOwner;
 
     public Deck(BaseEntity owner)
     {
         deckOwner = owner;
         LoadStarterDeck();
-        for (int i = 0; i < handSize; i++)
+        for (int i = 0; i < 2; i++)
         {
-            cardsInHand.Add(null);
-            PutCardInHand(i);
+            cardSets.Add(new CardSet());
+            EventManager.SetAdded();
+            for (int j = 0; j < 4; j++)
+            {
+                PutCardInSet(i);
+            }
         }
     }
 
-    public void PlayCard(int placeInHand)
+    public void PlaySet(int cardSetNumber)
     {
-        ICard cardToPlay = cardsInHand[placeInHand];
-        cardToPlay.Cast();
-        RemoveCardInHand(placeInHand);
-        PutCardInHand(placeInHand);
+        cardSets[cardSetNumber].PlaySet();
     }
 
     private void LoadStarterDeck()
@@ -42,23 +42,25 @@ public partial class Deck
         cards.Add(new HealCard(deckOwner));
         cards.Add(new ExplosionBuffCard(deckOwner));
         cards.Add(new ExplosionBuffCard(deckOwner));
+
+
     }
 
-    private void PutCardInHand(int placeInHand)
+    private void PutCardInSet(int setPostition)
     {
-        ICard cardToPutInHand = DrawCard();
-        if (cardToPutInHand != null)
+        ICard cardToPutInSet = DrawCard();
+        if (cardToPutInSet != null)
         {
-            cardsInHand[placeInHand] = cardToPutInHand;
-            EventManager.CardInHandUpdated?.Invoke(placeInHand, cardToPutInHand);
+            cardSets[setPostition].AddCard(cardToPutInSet);
+            EventManager.CardInSetUpdated?.Invoke(setPostition, cardToPutInSet);
         }
     }
 
-    private void RemoveCardInHand(int placeInHand)
-    {
-        cards.Add(cardsInHand[placeInHand]);
-        cardsInHand[placeInHand] = null;
-    }
+    // private void RemoveCardInHand(int placeInHand)
+    // {
+    //     cards.Add(cardsInHand[placeInHand]);
+    //     cardsInHand[placeInHand] = null;
+    // }
 
     private ICard DrawCard()
     {

@@ -6,13 +6,13 @@ public partial class CardHandUI : HBoxContainer
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		EventManager.CardInHandUpdated += OnCardInHandUpdated;
+		EventManager.CardInSetUpdated += OnCardInHandUpdated;
 	}
 
 	public override void _ExitTree()
 	{
 		base._ExitTree();
-		EventManager.CardInHandUpdated -= OnCardInHandUpdated;
+		EventManager.CardInSetUpdated -= OnCardInHandUpdated;
 	}
 
 	private void OnCardInHandUpdated(int placeInHand, ICard addedCard)

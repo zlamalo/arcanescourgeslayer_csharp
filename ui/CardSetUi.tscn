@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg77fafprw2od"]
+
+[ext_resource type="Script" path="res://ui/CardSetUi.cs" id="1_vhbyh"]
+
+[sub_resource type="Curve" id="Curve_kdy8y"]
+min_value = -1.0
+_data = [Vector2(0, -0.955372), 0.0, 6.38683, 0, 0, Vector2(0.506224, -0.054945), 0.0776623, 0.0776623, 0, 0, Vector2(0.995851, 1), 0.132417, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_medjk"]
+min_value = -1.0
+_data = [Vector2(0, -0.0314051), 0.0, 5.83463, 0, 0, Vector2(0.493776, 1), 0.362425, 0.362425, 0, 0, Vector2(0.991701, 0.0115702), -5.0059, 0.0, 0, 0]
+point_count = 3
+
+[node name="CardSetUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vhbyh")
+RotationCurve = SubResource("Curve_kdy8y")
+HandCurve = SubResource("Curve_medjk")
