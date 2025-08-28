@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CardResc" load_steps=5 format=3 uid="uid://dsu4c3deoghsk"]
+[gd_resource type="Resource" script_class="Card" load_steps=5 format=3 uid="uid://dsu4c3deoghsk"]
 
-[ext_resource type="Script" path="res://cards/CardResc.cs" id="1_p4djv"]
+[ext_resource type="Script" path="res://cards/Card.cs" id="1_p4djv"]
 [ext_resource type="Script" path="res://spells/ExplosionBuffSpell.cs" id="1_p5qwp"]
 [ext_resource type="Texture2D" uid="uid://ddjaq2oecynwu" path="res://assets/cards/AttackBuffCard.png" id="2_dw81b"]
 

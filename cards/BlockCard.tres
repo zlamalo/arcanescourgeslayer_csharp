@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CardResc" load_steps=5 format=3 uid="uid://pdhc403ymk5r"]
+[gd_resource type="Resource" script_class="Card" load_steps=5 format=3 uid="uid://pdhc403ymk5r"]
 
-[ext_resource type="Script" path="res://cards/CardResc.cs" id="1_kbhki"]
+[ext_resource type="Script" path="res://cards/Card.cs" id="1_kbhki"]
 [ext_resource type="Script" path="res://spells/BlockSpell.cs" id="1_psekr"]
 [ext_resource type="Texture2D" uid="uid://760y7lh3x2wn" path="res://assets/cards/BlockCard.png" id="2_qfhxl"]
 
