@@ -1,17 +1,18 @@
-using Godot;
 using System;
+using Godot;
 
-public class Card
+[GlobalClass]
+public partial class Card : Resource
 {
-	public string cardName;
-	protected CharacterBody2D cardCaster;
+    [Export]
+    public string CardName;
 
-	public Card(CharacterBody2D owner)
-	{
-		cardCaster = owner;
-	}
+    [Export]
+    public Texture2D Texture;
 
-	public virtual void Cast()
-	{
-	}
+    [Export]
+    public ElementType ElementType;
+
+    [Export]
+    public Spell Spell;
 }

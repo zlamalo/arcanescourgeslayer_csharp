@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardResc" load_steps=5 format=3 uid="uid://bgcp6wjq2bcso"]
+
+[ext_resource type="Texture2D" uid="uid://c6nmwwlh6sohx" path="res://assets/cards/FireballCard.png" id="1_hs15t"]
+[ext_resource type="Script" path="res://cards/CardResc.cs" id="1_xoo3g"]
+[ext_resource type="Script" path="res://spells/FireballSpell.cs" id="2_7mbbc"]
+
+[sub_resource type="Resource" id="Resource_8qhi3"]
+script = ExtResource("2_7mbbc")
+
+[resource]
+script = ExtResource("1_xoo3g")
+CardName = "Fireball"
+Texture = ExtResource("1_hs15t")
+ElementType = 0
+Spell = SubResource("Resource_8qhi3")

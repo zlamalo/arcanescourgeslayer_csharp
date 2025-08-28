@@ -15,10 +15,10 @@ public partial class CardHandUI : HBoxContainer
 		EventManager.CardInSetUpdated -= OnCardInHandUpdated;
 	}
 
-	private void OnCardInHandUpdated(int placeInHand, ICard addedCard)
+	private void OnCardInHandUpdated(int placeInHand, Card addedCard)
 	{
 		var cardSprite = GetChild(placeInHand).GetChild<Sprite2D>(0);
-		var cardTexture = (Texture2D)GD.Load($"res://assets/cards/{addedCard.CardName}.png");
+		var cardTexture = addedCard.Texture;// (Texture2D)GD.Load($"res://assets/cards/{addedCard.CardName}.png");
 		cardSprite.Texture = cardTexture;
 	}
 

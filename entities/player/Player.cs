@@ -47,12 +47,12 @@ public partial class Player : BaseEntity
 			velocity = Vector2.Zero;
 		}
 
-		if (Input.IsActionPressed("ui_left_mouse_button"))
+		if (Input.IsActionJustPressed("ui_left_mouse_button"))
 		{
 			deck.PlaySet(0);
 		}
 
-		if (Input.IsActionPressed("ui_right_mouse_button"))
+		if (Input.IsActionJustPressed("ui_right_mouse_button"))
 		{
 			deck.PlaySet(1);
 		}

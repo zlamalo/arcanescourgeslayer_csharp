@@ -10,10 +10,10 @@ public partial class CardSetUi : Control
 
     public PackedScene cardUIScene = GD.Load<PackedScene>("res://ui/CardUI.tscn");
 
-    public void AddCard(ICard card)
+    public void AddCard(Card card)
     {
         var cardUI = cardUIScene.Instantiate();
-        cardUI.GetChild<Sprite2D>(0).Texture = (Texture2D)GD.Load($"res://assets/cards/{card.CardName}.png");
+        cardUI.GetChild<Sprite2D>(0).Texture = card.Texture;// (Texture2D)GD.Load($"res://assets/cards/{card.CardName}.png");
         AddChild(cardUI);
         UpdateCards();
     }

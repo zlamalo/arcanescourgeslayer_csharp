@@ -6,7 +6,7 @@ public static class EventManager
 {
     public static Action SetAdded;
 
-    public static Action<int, ICard> CardInSetUpdated;
+    public static Action<int, Card> CardInSetUpdated;
 
     public static Action<int> DeckSizeUpdated;
 

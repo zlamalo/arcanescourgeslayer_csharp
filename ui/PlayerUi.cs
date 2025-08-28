@@ -72,7 +72,7 @@ public partial class PlayerUi : Control
 
 	}
 
-	private void OnCardAdded(int cardSet, ICard card)
+	private void OnCardAdded(int cardSet, Card card)
 	{
 		var cardSetUi = GetNode("BottomUI").GetNode("CardSets").GetChild<CardSetUi>(cardSet);
 		cardSetUi.AddCard(card);

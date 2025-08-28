@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardResc" load_steps=5 format=3 uid="uid://b3oavntucdo20"]
+
+[ext_resource type="Script" path="res://cards/CardResc.cs" id="1_4u01t"]
+[ext_resource type="Script" path="res://spells/HealSpell.cs" id="1_4460s"]
+[ext_resource type="Texture2D" uid="uid://cyw4fhbcypu0x" path="res://assets/cards/HealCard.png" id="2_nvo5a"]
+
+[sub_resource type="Resource" id="Resource_dsqg5"]
+script = ExtResource("1_4460s")
+
+[resource]
+script = ExtResource("1_4u01t")
+CardName = "Heal"
+Texture = ExtResource("2_nvo5a")
+ElementType = 3
+Spell = SubResource("Resource_dsqg5")
