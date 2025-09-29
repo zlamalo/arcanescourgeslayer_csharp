@@ -13,8 +13,8 @@ public partial class Player : BaseEntity
 	public const float Speed = 200.0f;
 	private Deck deck;
 
-	private int _hp = 100;
-	public override int Hp { get => _hp; set => _hp = value; }
+	private double _hp = 100;
+	public override double Hp { get => _hp; set => _hp = value; }
 
 	public override ElementalValues Resistances => new(new Dictionary<ElementType, int>
 	{

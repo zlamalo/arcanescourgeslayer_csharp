@@ -13,9 +13,9 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
 
     public List<IBuff> attackBuffs = new();
 
-    public abstract int Hp { get; set; }
+    public abstract double Hp { get; set; }
 
-    public int MaxHp { get; set; }
+    public double MaxHp { get; set; }
 
     public virtual ElementalValues Resistances => new();
 
@@ -30,16 +30,16 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
         healthBar.Value = Hp;
     }
 
-    public void TakeDamage(IDamageEffect damage)
+    public void TakeDamage(IDamageEffect damageEffect)
     {
-        int totalDmg = damage.BaseDamage;
-        var nonMitigatedDmg = damage.BaseDamage;
-        if (damage.DamageType.RawValues != null)
+        double totalDmg = 0;
+        double nonMitigatedDmg = 0;
+        if (damageEffect.Damage.Any())
         {
-            foreach (var pair in damage.DamageType.RawValues)
+            foreach (Damage damage in damageEffect.Damage)
             {
-                var element = pair.Key;
-                var damageAmount = pair.Value;
+                ElementType element = damage.ElementType;
+                double damageAmount = damage.Value;
                 var resist = Resistances[element];
 
                 int mitigated = (int)(damageAmount * (1 - resist / 100.0));
@@ -60,7 +60,7 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
         {
             color = Colors.Red;
         }
-        DisplayNumber(totalDmg, color);
+        DisplayNumber((int)totalDmg, color);
         healthBar.Value = Hp;
         if (Hp <= 0)
         {
@@ -75,7 +75,7 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
         {
             Hp += healingDone;
             healthBar.Value = Hp;
-            DisplayNumber(healingDone, Colors.Green);
+            DisplayNumber((int)healingDone, Colors.Green);
         }
     }
 

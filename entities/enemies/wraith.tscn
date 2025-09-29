@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cs0e4kcc67vha"]
+[gd_scene load_steps=9 format=3 uid="uid://cs0e4kcc67vha"]
 
 [ext_resource type="Script" path="res://entities/enemies/Wraith.cs" id="1_xx0m0"]
 [ext_resource type="Texture2D" uid="uid://c12f7gx15raqc" path="res://assets/entities/Wraith.png" id="2_oj6em"]
-[ext_resource type="Script" path="res://effects/DamageEffect.cs" id="3_a2fh2"]
+[ext_resource type="Script" path="res://effects/DamageEffect.cs" id="3_0q4b5"]
+[ext_resource type="Script" path="res://effects/Damage.cs" id="4_p74nu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nehs"]
 radius = 5.0
@@ -11,6 +12,11 @@ height = 16.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_heg5i"]
 radius = 6.0
 height = 18.0
+
+[sub_resource type="Resource" id="Resource_baui3"]
+script = ExtResource("4_p74nu")
+ElementType = 1
+Value = 10.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vdjik"]
 radius = 9.0
@@ -37,7 +43,8 @@ shape = SubResource("CapsuleShape2D_heg5i")
 [node name="DamageArea" type="Area2D" parent="."]
 collision_layer = 512
 collision_mask = 2
-script = ExtResource("3_a2fh2")
+script = ExtResource("3_0q4b5")
+DamageValues = Array[Object]([SubResource("Resource_baui3")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
 shape = SubResource("CircleShape2D_vdjik")

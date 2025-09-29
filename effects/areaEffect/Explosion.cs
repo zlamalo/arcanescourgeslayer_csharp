@@ -1,18 +1,12 @@
 using Godot;
-using System;
-using System.Collections.Generic;
+using Godot.Collections;
 
 public partial class Explosion : AreaEffect, IDamageEffect
 {
     private AnimationPlayer animationPlayer;
 
-    public ElementalValues DamageType => new(new Dictionary<ElementType, int>
-    {
-        {ElementType.Fire, 100}
-    });
 
-    public int BaseDamage => 0;
-
+    public Array<Damage> Damage => new Array<Damage>() { new Damage() { ElementType = ElementType.Fire, Value = 100 } };
 
     public override void _Ready()
     {

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxkny0jxnktan"]
+
+[ext_resource type="Script" path="res://effects/projectiles/ProjectileBase.cs" id="1_0ic2g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bpcxv"]
+radius = 5.09902
+
+[node name="ProjectileBase" type="Area2D"]
+collision_layer = 4
+collision_mask = 256
+script = ExtResource("1_0ic2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bpcxv")
+
+[connection signal="area_entered" from="." to="." method="OnProjectileHit"]
