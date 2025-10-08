@@ -1,0 +1,95 @@
+[gd_scene load_steps=13 format=3 uid="uid://bsnw0if4antcm"]
+
+[ext_resource type="Script" path="res://effects/areaEffect/Slash.cs" id="1_loiml"]
+[ext_resource type="Texture2D" uid="uid://dfqvfs2x6yhy0" path="res://assets/skills/slash.png" id="2_fyfco"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l2gbf"]
+radius = 4.0
+height = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f431m"]
+atlas = ExtResource("2_fyfco")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q35jk"]
+atlas = ExtResource("2_fyfco")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xs7mv"]
+atlas = ExtResource("2_fyfco")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2d60q"]
+atlas = ExtResource("2_fyfco")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3uth"]
+atlas = ExtResource("2_fyfco")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn0ou"]
+atlas = ExtResource("2_fyfco")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x13bl"]
+atlas = ExtResource("2_fyfco")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsu76"]
+atlas = ExtResource("2_fyfco")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w44i5"]
+animations = [{
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_f431m")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_q35jk")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_xs7mv")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_2d60q")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_u3uth")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_pn0ou")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_x13bl")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_jsu76")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"slash",
+"speed": 10.0
+}]
+
+[node name="Slash" type="Area2D"]
+collision_layer = 512
+collision_mask = 2
+monitoring = false
+monitorable = false
+script = ExtResource("1_loiml")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 0)
+shape = SubResource("CapsuleShape2D_l2gbf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w44i5")
+animation = &"slash"
+frame = 8
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="OnFrameChanged"]

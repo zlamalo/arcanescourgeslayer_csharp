@@ -1,26 +1,18 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 
 public partial class Player : BaseEntity
 {
 	private AnimationTree animationTree;
-
 	private AnimationNodeStateMachinePlayback stateMachine;
-
 	private Node2D hands;
 
-	public const float Speed = 200.0f;
 	private Deck deck;
 
-	private double _hp = 100;
-	public override double Hp { get => _hp; set => _hp = value; }
+	[Export]
+	public PlayerRes PlayerRes;
 
-	public override ElementalValues Resistances => new(new Dictionary<ElementType, int>
-	{
-		{ElementType.Fire, -80}
-	});
-
+	public override EntityRes EntityRes => PlayerRes;
 
 	public override void _Ready()
 	{
@@ -40,7 +32,7 @@ public partial class Player : BaseEntity
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		if (direction != Vector2.Zero)
 		{
-			velocity = direction * Speed;
+			velocity = direction * MovementSpeed;
 		}
 		else
 		{

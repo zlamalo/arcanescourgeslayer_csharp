@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dc8kpipewl0he"]
+[gd_scene load_steps=4 format=3 uid="uid://dc8kpipewl0he"]
 
-[ext_resource type="Script" path="res://Spawner.cs" id="1_h0hhh"]
+[ext_resource type="Script" path="res://entities/Spawner.cs" id="1_kbbhx"]
+[ext_resource type="Resource" uid="uid://rg5ml0wo24kj" path="res://entities/enemies/Wraith.tres" id="2_56gsm"]
+[ext_resource type="Resource" uid="uid://d1o3use65wu8y" path="res://entities/enemies/FireImp.tres" id="3_5irtt"]
 
 [node name="Spawner" type="Node2D"]
-script = ExtResource("1_h0hhh")
+script = ExtResource("1_kbbhx")
+SpawnableEnemies = Array[Object]([ExtResource("2_56gsm"), ExtResource("3_5irtt")])
+SpawnRate = 0.5

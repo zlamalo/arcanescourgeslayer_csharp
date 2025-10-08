@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyRes" load_steps=3 format=3 uid="uid://m3ksdgk45ikv"]
+
+[ext_resource type="Script" path="res://entities/enemies/EnemyRes.cs" id="1_kkvwu"]
+[ext_resource type="Texture2D" uid="uid://vf7vtdgaxgnb" path="res://assets/entities/dummy.png" id="1_yorbk"]
+
+[resource]
+script = ExtResource("1_kkvwu")
+Texture = ExtResource("1_yorbk")
+MovementSpeed = 0.0
+MaxHP = 1000.0

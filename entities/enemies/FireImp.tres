@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EnemyRes" load_steps=9 format=3 uid="uid://d1o3use65wu8y"]
+
+[ext_resource type="Script" path="res://effects/Damage.cs" id="1_5bstc"]
+[ext_resource type="Script" path="res://entities/enemies/EnemyRes.cs" id="1_v5lav"]
+[ext_resource type="Script" path="res://effects/EnemyAttack/SlashAttack.cs" id="2_710wd"]
+[ext_resource type="Script" path="res://effects/ElementalResistance.cs" id="3_np73f"]
+[ext_resource type="Texture2D" uid="uid://cx16tove18ns4" path="res://assets/entities/FireImp.png" id="4_3s6hx"]
+
+[sub_resource type="Resource" id="Resource_1yhbn"]
+script = ExtResource("1_5bstc")
+ElementType = 0
+Value = 5.0
+
+[sub_resource type="Resource" id="Resource_xd2jr"]
+script = ExtResource("2_710wd")
+Damage = Array[Object]([SubResource("Resource_1yhbn")])
+
+[sub_resource type="Resource" id="Resource_8xv04"]
+script = ExtResource("3_np73f")
+ElementType = 0
+Value = 50.0
+
+[resource]
+script = ExtResource("1_v5lav")
+Texture = ExtResource("4_3s6hx")
+Attack = SubResource("Resource_xd2jr")
+MovementSpeed = 120.0
+MaxHP = 150.0
+ElementalResistances = Array[Object]([SubResource("Resource_8xv04")])

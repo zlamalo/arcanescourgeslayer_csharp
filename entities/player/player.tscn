@@ -1,12 +1,30 @@
-[gd_scene load_steps=23 format=3 uid="uid://b6aehpax266r5"]
+[gd_scene load_steps=28 format=3 uid="uid://b6aehpax266r5"]
 
 [ext_resource type="Script" path="res://entities/player/Player.cs" id="1_lxq7a"]
+[ext_resource type="Script" path="res://effects/ElementalResistance.cs" id="2_4qc1y"]
+[ext_resource type="Script" path="res://entities/player/PlayerRes.cs" id="2_a3ua8"]
 [ext_resource type="Texture2D" uid="uid://dinpdyewh22py" path="res://assets/entities/wizard_Front.png" id="2_igcre"]
 [ext_resource type="Texture2D" uid="uid://clybjasbr3bme" path="res://assets/entities/wizard_Back.png" id="3_28x2r"]
 [ext_resource type="Texture2D" uid="uid://bb8pw8sbue5yp" path="res://assets/entities/wizard_Left.png" id="4_7mbrk"]
 [ext_resource type="Texture2D" uid="uid://ceihm2nswj4le" path="res://assets/entities/wizard_Right.png" id="5_jdux7"]
 [ext_resource type="Texture2D" uid="uid://bhffdo36r4neg" path="res://assets/entities/LeftHand.png" id="6_d8fml"]
 [ext_resource type="Texture2D" uid="uid://bgc5nex0y4pd6" path="res://assets/entities/RightHand.png" id="7_bcapg"]
+
+[sub_resource type="Resource" id="Resource_6pr43"]
+script = ExtResource("2_4qc1y")
+ElementType = 1
+Value = 50.0
+
+[sub_resource type="Resource" id="Resource_ckg4j"]
+script = ExtResource("2_4qc1y")
+ElementType = 0
+Value = -50.0
+
+[sub_resource type="Resource" id="Resource_0dobc"]
+script = ExtResource("2_a3ua8")
+MovementSpeed = 200.0
+MaxHP = 100.0
+ElementalResistances = Array[Object]([SubResource("Resource_6pr43"), SubResource("Resource_ckg4j")])
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x0rp3"]
 radius = 6.0
@@ -139,6 +157,7 @@ collision_layer = 2
 collision_mask = 257
 slide_on_ceiling = false
 script = ExtResource("1_lxq7a")
+PlayerRes = SubResource("Resource_0dobc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_x0rp3")

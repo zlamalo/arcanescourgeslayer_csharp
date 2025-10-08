@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyRes" load_steps=7 format=3 uid="uid://rg5ml0wo24kj"]
+
+[ext_resource type="Script" path="res://entities/enemies/EnemyRes.cs" id="1_08a0o"]
+[ext_resource type="Script" path="res://effects/Damage.cs" id="1_88s5w"]
+[ext_resource type="Texture2D" uid="uid://c12f7gx15raqc" path="res://assets/entities/Wraith.png" id="1_y1tyk"]
+[ext_resource type="Script" path="res://effects/EnemyAttack/SlashAttack.cs" id="2_ubb8h"]
+
+[sub_resource type="Resource" id="Resource_80gyy"]
+script = ExtResource("1_88s5w")
+ElementType = 1
+Value = 10.0
+
+[sub_resource type="Resource" id="Resource_kt4vo"]
+script = ExtResource("2_ubb8h")
+Damage = Array[Object]([SubResource("Resource_80gyy")])
+
+[resource]
+script = ExtResource("1_08a0o")
+Texture = ExtResource("1_y1tyk")
+Attack = SubResource("Resource_kt4vo")
+MovementSpeed = 100.0
+MaxHP = 250.0
+ElementalResistances = null

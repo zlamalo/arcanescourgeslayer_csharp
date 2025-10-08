@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AnimatedSpell" load_steps=3 format=3 uid="uid://ls7u835mwyhj"]
+
+[ext_resource type="Script" path="res://spells/AnimatedSpell.cs" id="1_glmnd"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y04b6"]
+
+[resource]
+script = ExtResource("1_glmnd")
+Animation = SubResource("AnimationNodeAnimation_y04b6")

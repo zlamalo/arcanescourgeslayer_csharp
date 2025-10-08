@@ -4,7 +4,6 @@ using System;
 
 public partial class ProjectileBase : Area2D, IDamageEffect
 {
-    //[Export]
     public Projectile Projectile;
 
     private int speed;
@@ -13,7 +12,6 @@ public partial class ProjectileBase : Area2D, IDamageEffect
     private Vector2 direction;
 
     public Array<Damage> Damage => Projectile.Damage;
-
 
     public override void _Ready()
     {

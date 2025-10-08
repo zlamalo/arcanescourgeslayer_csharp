@@ -2,32 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Godot.Collections;
 
-public abstract partial class BaseEntity : CharacterBody2D, IResistances
+public abstract partial class BaseEntity : CharacterBody2D
 {
     private PackedScene healthBarScene = GD.Load<PackedScene>("res://entities/HealthBar.tscn");
-
     private PackedScene effectNumberScene = GD.Load<PackedScene>("res://visualEffects/EffectNumber.tscn");
-
     private HealthBar healthBar;
 
+    protected double MaxHP;
+    protected double HP;
+    protected float MovementSpeed;
+    protected Array<ElementalResistance> ElementalResistances;
+
+    public abstract EntityRes EntityRes { get; }
     public List<IBuff> attackBuffs = new();
-
-    public abstract double Hp { get; set; }
-
-    public double MaxHp { get; set; }
-
-    public virtual ElementalValues Resistances => new();
 
     public override void _Ready()
     {
         base._Ready();
+        SetupResValues();
+
         healthBar = healthBarScene.Instantiate() as HealthBar;
         AddChild(healthBar);
         healthBar.Position = new Vector2(-8, -12);
-        healthBar.MaxValue = Hp;
-        MaxHp = Hp;
-        healthBar.Value = Hp;
+
+        healthBar.MaxValue = MaxHP;
+        HP = MaxHP;
+        healthBar.Value = MaxHP;
     }
 
     public void TakeDamage(IDamageEffect damageEffect)
@@ -40,7 +42,7 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
             {
                 ElementType element = damage.ElementType;
                 double damageAmount = damage.Value;
-                var resist = Resistances[element];
+                float resist = ElementalResistances?.Where(r => r.ElementType == damage.ElementType).FirstOrDefault()?.Value ?? 0;
 
                 int mitigated = (int)(damageAmount * (1 - resist / 100.0));
 
@@ -49,8 +51,7 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
             }
         }
 
-
-        Hp -= totalDmg;
+        HP -= totalDmg;
         var color = Colors.Orange;
         if (totalDmg < nonMitigatedDmg * 0.75)
         {
@@ -61,8 +62,8 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
             color = Colors.Red;
         }
         DisplayNumber((int)totalDmg, color);
-        healthBar.Value = Hp;
-        if (Hp <= 0)
+        healthBar.Value = HP;
+        if (HP <= 0)
         {
             QueueFree();
         }
@@ -70,11 +71,11 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
 
     public void Heal(int healAmount)
     {
-        var healingDone = Math.Min(healAmount, MaxHp - Hp);
+        var healingDone = Math.Min(healAmount, MaxHP - HP);
         if (healingDone > 0)
         {
-            Hp += healingDone;
-            healthBar.Value = Hp;
+            HP += healingDone;
+            healthBar.Value = HP;
             DisplayNumber((int)healingDone, Colors.Green);
         }
     }
@@ -103,5 +104,12 @@ public abstract partial class BaseEntity : CharacterBody2D, IResistances
         var position = Position + new Vector2(-5, -20);
         number.Initialize(position, value, numberColor);
         GetParent().AddChild(number);
+    }
+
+    private void SetupResValues()
+    {
+        MaxHP = EntityRes.MaxHP;
+        MovementSpeed = EntityRes.MovementSpeed;
+        ElementalResistances = EntityRes.ElementalResistances;
     }
 }
