@@ -1,32 +1,23 @@
-using System.Collections.Generic;
+using System.Linq;
 using Godot;
+using Godot.Collections;
 
-public class CardSet
+[GlobalClass]
+public partial class CardSet : Resource
 {
+    [Export]
+    public Array<Card> CardsInSet;
 
-    private List<Card> cardsInSet = new();
-
-    // private int maxCards;
-
-    //private double cooldown;
-
-    private BaseEntity cardSetOwner;
-
-    public CardSet(BaseEntity cardSetOwner)
+    public void PlaySet(BaseEntity caster)
     {
-        this.cardSetOwner = cardSetOwner;
-    }
-
-    public void PlaySet()
-    {
-        if (cardsInSet.Count > 0)
+        if (CardsInSet.Count > 0)
         {
-            cardsInSet.ForEach(c => c.Spell.Cast(cardSetOwner));
+            CardsInSet.ToList().ForEach(c => c.Spell.Cast(caster));
         }
     }
 
     public void AddCard(Card card)
     {
-        cardsInSet.Add(card);
+        CardsInSet.Add(card);
     }
 }

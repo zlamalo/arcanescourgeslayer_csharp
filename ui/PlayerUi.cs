@@ -1,34 +1,30 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Godot.Collections;
 
-public partial class PlayerUi : Control
+public partial class PlayerUI : Control
 {
 	public PackedScene buffUI = GD.Load<PackedScene>("res://ui/BuffUI.tscn");
-	public PackedScene cardSetUI = GD.Load<PackedScene>("res://ui/CardSetUi.tscn");
+	public PackedScene cardSetUIScene = GD.Load<PackedScene>("res://ui/CardSetUI.tscn");
 
 	public override void _Ready()
 	{
-		EventManager.DeckSizeUpdated += OnDeckSizeUpdated;
 		EventManager.BuffsUpdated += OnBuffChanged;
-		EventManager.CardInSetUpdated += OnCardAdded;
-		EventManager.SetAdded += OnCardSetAdded;
+		EventManager.DeckUpdated += OnDeckUpdated;
+		EventManager.CardSetsUpdated += OnCardSetsUpdated;
 	}
 
 	public override void _ExitTree()
 	{
 		base._ExitTree();
-		EventManager.DeckSizeUpdated -= OnDeckSizeUpdated;
 		EventManager.BuffsUpdated -= OnBuffChanged;
-		EventManager.CardInSetUpdated += OnCardAdded;
-		EventManager.SetAdded -= OnCardSetAdded;
+		EventManager.DeckUpdated -= OnDeckUpdated;
+		EventManager.CardSetsUpdated -= OnCardSetsUpdated;
 	}
 
-	private void OnDeckSizeUpdated(int deckSize)
+	private void OnDeckUpdated(Deck deck)
 	{
 		Label deckSizeLabel = GetNode("BottomUI").GetNode("Deck").GetNode<Label>("DeckSize");
-		deckSizeLabel.Text = deckSize.ToString() + "cards in deck";
+		deckSizeLabel.Text = deck.CardsInDeck.Count + "cards in deck";
 	}
 
 	private void OnBuffChanged(int buffCount, IBuff buff)
@@ -54,27 +50,43 @@ public partial class PlayerUi : Control
 		}
 	}
 
-	private void OnCardSetAdded()
+	private void OnCardSetsUpdated(Array<CardSet> cardSets)
 	{
-		CardSetUi cardSet = cardSetUI.Instantiate() as CardSetUi;
+		var currentCardSetsCount = GetNode("BottomUI").GetNode("CardSets").GetChildCount();
+
+		for (int i = 0; i < cardSets.Count; i++)
+		{
+			var cardSet = cardSets[i];
+			if (currentCardSetsCount - i > 0)
+			{
+				CardSetUI currentCardSetUI = GetNode("BottomUI").GetNode("CardSets").GetChild<CardSetUI>(i);
+				if (cardSet != currentCardSetUI.CurrentCardSet)
+				{
+					currentCardSetUI.UpdateCardSet(cardSet);
+				}
+			}
+			else
+			{
+				CardSetUI cardSetUI = cardSetUIScene.Instantiate<CardSetUI>();
+				cardSetUI.UpdateCardSet(cardSet);
+				GetNode("BottomUI").GetNode("CardSets").AddChild(cardSetUI);
+			}
+		}
+		UpdateCardSetsPositions();
+	}
+
+	private void UpdateCardSetsPositions()
+	{
 		var bottomUi = GetNode<PanelContainer>("BottomUI");
 		var cardSets = GetNode("BottomUI").GetNode<Control>("CardSets");
-		cardSets.AddChild(cardSet);
 
 		var sets = cardSets.GetChildren();
 		var numberOfSets = sets.Count;
 		var gap = bottomUi.Size.X / (numberOfSets + 1);
 		for (int i = numberOfSets - 1; i >= 0; i--)
 		{
-			CardSetUi set = (CardSetUi)sets[i];
+			CardSetUI set = (CardSetUI)sets[i];
 			set.OffsetLeft = i * gap;
 		}
-
-	}
-
-	private void OnCardAdded(int cardSet, Card card)
-	{
-		var cardSetUi = GetNode("BottomUI").GetNode("CardSets").GetChild<CardSetUi>(cardSet);
-		cardSetUi.AddCard(card);
 	}
 }

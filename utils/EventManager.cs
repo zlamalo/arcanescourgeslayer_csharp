@@ -1,14 +1,12 @@
 
 using System;
-using System.Collections.Generic;
+using Godot.Collections;
 
 public static class EventManager
 {
-    public static Action SetAdded;
+    public static Action<Array<CardSet>> CardSetsUpdated;
 
-    public static Action<int, Card> CardInSetUpdated;
-
-    public static Action<int> DeckSizeUpdated;
+    public static Action<Deck> DeckUpdated;
 
     public static Action<int, IBuff> BuffsUpdated;
 }

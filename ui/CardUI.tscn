@@ -1,82 +1,66 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwp3t6xntbyq5"]
+[gd_scene load_steps=6 format=3 uid="uid://dwp3t6xntbyq5"]
 
-[ext_resource type="Script" path="res://ui/CardUi.cs" id="1_rmjqk"]
+[ext_resource type="Script" path="res://ui/CardUI.cs" id="1_yq75n"]
 [ext_resource type="Texture2D" uid="uid://dbti0xftmi6ey" path="res://assets/cards/CooldownCard.png" id="2_jh0vh"]
 
-[sub_resource type="Animation" id="Animation_j1t3d"]
-resource_name = "Deselect"
+[sub_resource type="Animation" id="Animation_8xplv"]
+resource_name = "Hover"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath("SpriteWrapper:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -8), Vector2(0, 4.95911e-05)]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id="Animation_1b6ol"]
+[sub_resource type="Animation" id="Animation_aha1j"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath("SpriteWrapper:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_0x14c"]
-resource_name = "Select"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 4.95911e-05), Vector2(0, -8)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_sq00m"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qlr8t"]
 _data = {
-"Deselect": SubResource("Animation_j1t3d"),
-"RESET": SubResource("Animation_1b6ol"),
-"Select": SubResource("Animation_0x14c")
+"Hover": SubResource("Animation_8xplv"),
+"RESET": SubResource("Animation_aha1j")
 }
 
 [node name="CardUI" type="Panel"]
 custom_minimum_size = Vector2(16, 24)
 anchors_preset = -1
-anchor_right = 0.014
-anchor_bottom = 0.037
-offset_right = -0.128
-offset_bottom = 0.0240002
-grow_horizontal = 2
-grow_vertical = 2
+anchor_right = 0.013
+anchor_bottom = 0.035
+offset_right = -0.120001
+offset_bottom = 0.200001
 pivot_offset = Vector2(8, 12)
 size_flags_vertical = 4
-script = ExtResource("1_rmjqk")
+script = ExtResource("1_yq75n")
+metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="SpriteWrapper" type="Node2D" parent="."]
+position = Vector2(8, 12)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteWrapper"]
 texture = ExtResource("2_jh0vh")
-offset = Vector2(8, 12)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_sq00m")
+"": SubResource("AnimationLibrary_qlr8t")
 }
 
 [connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]

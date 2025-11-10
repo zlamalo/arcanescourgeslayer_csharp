@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpyc2drdkgcax"]
 
-[ext_resource type="Script" path="res://ui/PlayerUi.cs" id="1_te7q5"]
+[ext_resource type="Script" path="res://ui/PlayerUI.cs" id="1_te7q5"]
 [ext_resource type="FontFile" uid="uid://lnxn7lyi65nn" path="res://assets/PixelFont.TTF" id="4_mcfcf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h1riw"]

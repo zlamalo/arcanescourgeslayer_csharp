@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://whlxopvr4loe"]
+
+[ext_resource type="Script" path="res://ui/InventoryUI.cs" id="1_pb84q"]
+[ext_resource type="FontFile" uid="uid://lnxn7lyi65nn" path="res://assets/PixelFont.TTF" id="2_3cek3"]
+[ext_resource type="PackedScene" uid="uid://dwp3t6xntbyq5" path="res://ui/CardUI.tscn" id="2_xdusq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8pplf"]
+font = ExtResource("2_3cek3")
+
+[node name="InventoryUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_pb84q")
+
+[node name="LeftSide" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.191176
+anchor_right = 0.362903
+anchor_bottom = 0.836765
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="LeftSide"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.337778
+anchor_right = 0.631111
+anchor_bottom = 0.00455581
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Card Sets
+"
+label_settings = SubResource("LabelSettings_8pplf")
+metadata/_edit_use_anchors_ = true
+
+[node name="CardSets" type="VBoxContainer" parent="LeftSide"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0322581
+anchor_top = 0.290135
+anchor_right = 0.958064
+anchor_bottom = 0.699738
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CardSet0" type="HBoxContainer" parent="LeftSide/CardSets"]
+visible = false
+layout_mode = 2
+
+[node name="CardUI" parent="LeftSide/CardSets/CardSet0" instance=ExtResource("2_xdusq")]
+layout_mode = 2
+
+[node name="CardSet1" type="HBoxContainer" parent="LeftSide/CardSets"]
+visible = false
+layout_mode = 2
+
+[node name="CardUI" parent="LeftSide/CardSets/CardSet1" instance=ExtResource("2_xdusq")]
+layout_mode = 2
+
+[node name="CardUI2" parent="LeftSide/CardSets/CardSet1" instance=ExtResource("2_xdusq")]
+layout_mode = 2
+
+[node name="RightSide" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.569355
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.925
+grow_horizontal = 0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="DeckCards" type="GridContainer" parent="RightSide"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0262172
+anchor_top = 0.109244
+anchor_right = 0.973783
+anchor_bottom = 0.969748
+grow_horizontal = 2
+grow_vertical = 2
+columns = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="RightSide"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.337778
+anchor_right = 0.631111
+anchor_bottom = 0.00455581
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Deck
+"
+label_settings = SubResource("LabelSettings_8pplf")
+metadata/_edit_use_anchors_ = true

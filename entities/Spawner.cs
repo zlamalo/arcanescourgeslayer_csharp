@@ -15,7 +15,7 @@ public partial class Spawner : Node2D
 
     public override void _Ready()
     {
-        worldNode = GetTree().Root.GetNode("Game/World");
+        worldNode = GetTree().Root.GetNode("RootNode/World");
         Timer timer = new()
         {
             WaitTime = SpawnRate,

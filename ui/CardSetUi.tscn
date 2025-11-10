@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cg77fafprw2od"]
 
-[ext_resource type="Script" path="res://ui/CardSetUi.cs" id="1_vhbyh"]
+[ext_resource type="Script" path="res://ui/CardSetUI.cs" id="1_vhbyh"]
 
 [sub_resource type="Curve" id="Curve_kdy8y"]
 min_value = -1.0

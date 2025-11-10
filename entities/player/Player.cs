@@ -7,8 +7,6 @@ public partial class Player : BaseEntity
 	private AnimationNodeStateMachinePlayback stateMachine;
 	private Node2D hands;
 
-	private Deck deck;
-
 	[Export]
 	public PlayerRes PlayerRes;
 
@@ -17,12 +15,14 @@ public partial class Player : BaseEntity
 	public override void _Ready()
 	{
 		base._Ready();
-		deck = new(this);
 		animationTree = GetNode<AnimationTree>("AnimationTree");
 		stateMachine = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
 		stateMachine.Travel("Direction");
 
 		hands = GetNode<Node2D>("Hands");
+
+		EventManager.DeckUpdated?.Invoke(PlayerRes.Deck);
+		EventManager.CardSetsUpdated?.Invoke(PlayerRes.CardSets);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -41,23 +41,13 @@ public partial class Player : BaseEntity
 
 		if (Input.IsActionJustPressed("ui_left_mouse_button"))
 		{
-			deck.PlaySet(0);
+			PlayerRes.CardSets[0].PlaySet(this);
 		}
 
 		if (Input.IsActionJustPressed("ui_right_mouse_button"))
 		{
-			deck.PlaySet(1);
+			PlayerRes.CardSets[1].PlaySet(this);
 		}
-
-		// if (Input.IsActionJustPressed("ui_Q"))
-		// {
-		// 	deck.PlaySet(2);
-		// }
-
-		// if (Input.IsActionJustPressed("ui_E"))
-		// {
-		// 	deck.PlaySet(3);
-		// }
 
 		Vector2 mousePos = GetLocalMousePosition();
 		Vector2 dir = mousePos.Normalized();

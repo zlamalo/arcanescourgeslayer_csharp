@@ -1,25 +1,27 @@
 using Godot;
 using System;
 
-public partial class CardUi : Panel
+public partial class CardUI : Panel
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public Card CurrentCard;
+
+
+	public void UpdateCard(Card card)
 	{
+		CurrentCard = card;
+		GetNode<Sprite2D>("SpriteWrapper/Sprite2D").Texture = card.Texture;
 	}
 
 	public void OnMouseEntered()
 	{
-		GetNode<AnimationPlayer>("AnimationPlayer").Play("Select");
+		ZIndex = 100;
+		GetNode<AnimationPlayer>("AnimationPlayer").Play("Hover");
 	}
 
 	public void OnMouseExited()
 	{
-		GetNode<AnimationPlayer>("AnimationPlayer").Play("Deselect");
+		ZIndex = 0;
+		GetNode<AnimationPlayer>("AnimationPlayer").PlayBackwards("Hover");
 	}
 }

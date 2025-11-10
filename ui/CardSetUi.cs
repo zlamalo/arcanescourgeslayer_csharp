@@ -1,21 +1,43 @@
 using Godot;
 using System;
 
-public partial class CardSetUi : Control
+public partial class CardSetUI : Control
 {
-    [Export] public Curve RotationCurve;
-    [Export] public Curve HandCurve;
+    private PackedScene cardUIScene = GD.Load<PackedScene>("res://ui/CardUI.tscn");
 
+    [Export]
+    public Curve RotationCurve;
 
+    [Export]
+    public Curve HandCurve;
 
-    public PackedScene cardUIScene = GD.Load<PackedScene>("res://ui/CardUI.tscn");
+    public CardSet CurrentCardSet;
 
-    public void AddCard(Card card)
+    public void UpdateCardSet(CardSet cardSet)
     {
-        var cardUI = cardUIScene.Instantiate();
-        cardUI.GetChild<Sprite2D>(0).Texture = card.Texture;// (Texture2D)GD.Load($"res://assets/cards/{card.CardName}.png");
-        AddChild(cardUI);
-        UpdateCards();
+        float cardsCount = GetChildCount();
+
+        for (int i = 0; i < cardSet.CardsInSet.Count; i++)
+        {
+
+            Card newCard = cardSet.CardsInSet[i];
+            if (cardsCount - i > 0)
+            {
+                CardUI currentCardUi = GetChild<CardUI>(i);
+                if (currentCardUi.CurrentCard != newCard)
+                {
+                    currentCardUi.UpdateCard(newCard);
+                }
+            }
+            else
+            {
+                var cardUI = cardUIScene.Instantiate<CardUI>();
+                cardUI.UpdateCard(newCard);
+                AddChild(cardUI);
+            }
+        }
+        CurrentCardSet = cardSet;
+        UpdateCards(); // maybe this should happen only if number of cards changed
     }
 
     private void UpdateCards()
@@ -24,7 +46,7 @@ public partial class CardSetUi : Control
 
         for (int i = 0; i < cardsCount; i++)
         {
-            CardUi card = GetChild<CardUi>(i);
+            CardUI card = GetChild<CardUI>(i);
             float yMult = 0;
             float rotationMult = 0;
 
@@ -33,8 +55,6 @@ public partial class CardSetUi : Control
                 yMult = HandCurve.Sample(1 / (cardsCount - 1) * i);
                 rotationMult = RotationCurve.Sample(1 / (cardsCount - 1) * i);
             }
-
-            //var finalX =
 
             card.Position = new Vector2(i * 15, -10 * yMult);
             card.RotationDegrees = 5 * rotationMult;
