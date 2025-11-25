@@ -3,14 +3,22 @@ using System;
 
 public partial class CardUI : Panel
 {
-
 	public Card CurrentCard;
 
+	public override Variant _GetDragData(Vector2 atPosition)
+	{
+		var preview = Duplicate() as Control;
+		SetDragPreview(preview);
+		return this;
+	}
 
 	public void UpdateCard(Card card)
 	{
-		CurrentCard = card;
-		GetNode<Sprite2D>("SpriteWrapper/Sprite2D").Texture = card.Texture;
+		if (CurrentCard?.Id != card?.Id)
+		{
+			CurrentCard = card;
+			GetNode<Sprite2D>("SpriteWrapper/Sprite2D").Texture = card?.Texture;
+		}
 	}
 
 	public void OnMouseEntered()

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://phevskuunsfn"]
+
+[ext_resource type="Script" path="res://ui/CardWrapperUI.cs" id="1_b7qbl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xokbg"]
+size = Vector2(16, 24)
+
+[node name="CardWrapperUI" type="Panel"]
+z_index = 10
+custom_minimum_size = Vector2(16, 24)
+anchors_preset = -1
+anchor_right = 0.013
+anchor_bottom = 0.035
+offset_right = -0.120001
+offset_bottom = 0.200001
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b7qbl")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8, 12)
+shape = SubResource("RectangleShape2D_xokbg")

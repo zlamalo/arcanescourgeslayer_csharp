@@ -1,19 +1,21 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Linq;
 
 public partial class InventoryUI : Control
 {
     private PackedScene cardUIScene = GD.Load<PackedScene>("res://ui/CardUI.tscn");
+    private PackedScene cardWrapperUIScene = GD.Load<PackedScene>("res://ui/CardWrapperUI.tscn");
 
-    private Array<CardSet> cardSets;
+    private Array<CardSet> cardSets = new();
 
     private Deck deck;
 
     public override void _Ready()
     {
         base._Ready();
-        EventManager.CardSetsUpdated += UpdateCardSet;
+        EventManager.CardSetUpdated += OnCardSetUpdated;
         EventManager.DeckUpdated += UpdateDeck;
 
     }
@@ -21,7 +23,7 @@ public partial class InventoryUI : Control
     public override void _ExitTree()
     {
         base._ExitTree();
-        EventManager.CardSetsUpdated -= UpdateCardSet;
+        EventManager.CardSetUpdated += OnCardSetUpdated;
         EventManager.DeckUpdated -= UpdateDeck;
     }
 
@@ -43,6 +45,19 @@ public partial class InventoryUI : Control
         cardSets = newCardSets;
     }
 
+    private void OnCardSetUpdated(CardSet updatedCardSet)
+    {
+        if (cardSets.Any(cs => cs.Id == updatedCardSet.Id))
+        {
+            int index = cardSets.IndexOf(cardSets.Where(cs => cs.Id == updatedCardSet.Id).First());
+            cardSets[index] = updatedCardSet;
+        }
+        else
+        {
+            cardSets.Add(updatedCardSet);
+        }
+    }
+
     private void UpdateDeck(Deck newDeck)
     {
         deck = newDeck;
@@ -54,13 +69,15 @@ public partial class InventoryUI : Control
 
         for (int i = 0; i < cardSets.Count; i++)
         {
+            var cardSet = cardSets[i];
             var cardContainer = new HBoxContainer();
             cardSetsUI.AddChild(cardContainer);
-            foreach (Card card in cardSets[i].CardsInSet)
+            foreach (Card card in cardSet.CardsInSet)
             {
-                var cardUI = cardUIScene.Instantiate<CardUI>();
-                cardUI.UpdateCard(card);
-                cardContainer.AddChild(cardUI);
+                var cardWrapperUI = cardWrapperUIScene.Instantiate<CardWrapperUI>();
+                cardWrapperUI.DisplayCard(card, cardSet.Id, cardSet.CardsInSet.IndexOf(card));
+                cardContainer.AddChild(cardWrapperUI);
+
             }
         }
     }

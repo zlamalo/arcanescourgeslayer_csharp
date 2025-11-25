@@ -1,10 +1,9 @@
 
 using System;
-using Godot.Collections;
 
 public static class EventManager
 {
-    public static Action<Array<CardSet>> CardSetsUpdated;
+    public static Action<CardSet> CardSetUpdated;
 
     public static Action<Deck> DeckUpdated;
 

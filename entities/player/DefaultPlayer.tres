@@ -1,0 +1,132 @@
+[gd_resource type="Resource" script_class="PlayerRes" load_steps=33 format=3 uid="uid://c1arqwd30dx85"]
+
+[ext_resource type="Resource" uid="uid://c5y8xu871jln3" path="res://effects/projectiles/Fireball.tres" id="1_04c1o"]
+[ext_resource type="Script" path="res://spells/ProjectileSpell.cs" id="2_es4ew"]
+[ext_resource type="Script" path="res://cards/CardSet.cs" id="2_mqgo3"]
+[ext_resource type="Texture2D" uid="uid://c6nmwwlh6sohx" path="res://assets/cards/FireballCard.png" id="3_adfgx"]
+[ext_resource type="Script" path="res://cards/Card.cs" id="4_w2mon"]
+[ext_resource type="Script" path="res://cards/Deck.cs" id="5_6psra"]
+[ext_resource type="Script" path="res://spells/BlockSpell.cs" id="6_kmtho"]
+[ext_resource type="Script" path="res://effects/ElementalResistance.cs" id="6_yy5pb"]
+[ext_resource type="Script" path="res://entities/player/PlayerRes.cs" id="7_0v6c7"]
+[ext_resource type="Texture2D" uid="uid://760y7lh3x2wn" path="res://assets/cards/BlockCard.png" id="7_sa6ab"]
+[ext_resource type="Script" path="res://spells/HealSpell.cs" id="8_r28sn"]
+[ext_resource type="Texture2D" uid="uid://cyw4fhbcypu0x" path="res://assets/cards/HealCard.png" id="9_4f6im"]
+
+[sub_resource type="Resource" id="Resource_yxr4p"]
+script = ExtResource("2_es4ew")
+Projectile = ExtResource("1_04c1o")
+
+[sub_resource type="Resource" id="Resource_0yapy"]
+script = ExtResource("4_w2mon")
+CardName = "Fireball"
+Texture = ExtResource("3_adfgx")
+ElementType = 0
+Spell = SubResource("Resource_yxr4p")
+
+[sub_resource type="Resource" id="Resource_fui3u"]
+script = ExtResource("2_es4ew")
+Projectile = ExtResource("1_04c1o")
+
+[sub_resource type="Resource" id="Resource_3ywpd"]
+script = ExtResource("4_w2mon")
+CardName = "Fireball"
+Texture = ExtResource("3_adfgx")
+ElementType = 0
+Spell = SubResource("Resource_fui3u")
+
+[sub_resource type="Resource" id="Resource_es2d5"]
+script = ExtResource("4_w2mon")
+CardName = "Fireball"
+Texture = ExtResource("3_adfgx")
+ElementType = 0
+Spell = SubResource("Resource_fui3u")
+
+[sub_resource type="Resource" id="Resource_yduto"]
+script = ExtResource("4_w2mon")
+CardName = "Fireball"
+Texture = ExtResource("3_adfgx")
+ElementType = 0
+Spell = SubResource("Resource_fui3u")
+
+[sub_resource type="Resource" id="Resource_ixl63"]
+script = ExtResource("2_mqgo3")
+CardsInSet = Array[Object]([SubResource("Resource_0yapy"), SubResource("Resource_3ywpd"), SubResource("Resource_es2d5"), SubResource("Resource_yduto")])
+
+[sub_resource type="Resource" id="Resource_htghs"]
+script = ExtResource("6_kmtho")
+
+[sub_resource type="Resource" id="Resource_ej5rn"]
+script = ExtResource("4_w2mon")
+CardName = "Block"
+Texture = ExtResource("7_sa6ab")
+ElementType = 1
+Spell = SubResource("Resource_htghs")
+
+[sub_resource type="Resource" id="Resource_63boc"]
+script = ExtResource("4_w2mon")
+CardName = "Block"
+Texture = ExtResource("7_sa6ab")
+ElementType = 1
+Spell = SubResource("Resource_htghs")
+
+[sub_resource type="Resource" id="Resource_dsqg5"]
+script = ExtResource("8_r28sn")
+
+[sub_resource type="Resource" id="Resource_v8rhr"]
+script = ExtResource("4_w2mon")
+CardName = "Heal"
+Texture = ExtResource("9_4f6im")
+ElementType = 3
+Spell = SubResource("Resource_dsqg5")
+
+[sub_resource type="Resource" id="Resource_0dk0d"]
+script = ExtResource("4_w2mon")
+CardName = "Heal"
+Texture = ExtResource("9_4f6im")
+ElementType = 3
+Spell = SubResource("Resource_dsqg5")
+
+[sub_resource type="Resource" id="Resource_i0xqo"]
+script = ExtResource("2_mqgo3")
+CardsInSet = Array[Object]([SubResource("Resource_ej5rn"), SubResource("Resource_63boc"), SubResource("Resource_v8rhr"), SubResource("Resource_0dk0d"), null])
+
+[sub_resource type="Resource" id="Resource_1hv3j"]
+script = ExtResource("2_es4ew")
+Projectile = ExtResource("1_04c1o")
+
+[sub_resource type="Resource" id="Resource_hsx7n"]
+script = ExtResource("4_w2mon")
+CardName = "Fireball"
+Texture = ExtResource("3_adfgx")
+ElementType = 0
+Spell = SubResource("Resource_1hv3j")
+
+[sub_resource type="Resource" id="Resource_4cvpu"]
+script = ExtResource("4_w2mon")
+CardName = "Heal"
+Texture = ExtResource("9_4f6im")
+ElementType = 3
+Spell = SubResource("Resource_dsqg5")
+
+[sub_resource type="Resource" id="Resource_6vxin"]
+script = ExtResource("5_6psra")
+CardsInDeck = Array[Object]([SubResource("Resource_hsx7n"), SubResource("Resource_4cvpu")])
+
+[sub_resource type="Resource" id="Resource_6pr43"]
+script = ExtResource("6_yy5pb")
+ElementType = 1
+Value = 50.0
+
+[sub_resource type="Resource" id="Resource_ckg4j"]
+script = ExtResource("6_yy5pb")
+ElementType = 0
+Value = -50.0
+
+[resource]
+script = ExtResource("7_0v6c7")
+Deck = SubResource("Resource_6vxin")
+CardSets = Array[Object]([SubResource("Resource_ixl63"), SubResource("Resource_i0xqo")])
+MovementSpeed = 200.0
+MaxHP = 100.0
+ElementalResistances = Array[Object]([SubResource("Resource_6pr43"), SubResource("Resource_ckg4j")])

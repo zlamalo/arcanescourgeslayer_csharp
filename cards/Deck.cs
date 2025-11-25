@@ -20,18 +20,4 @@ public partial class Deck : Resource
         CardsInDeck.Remove(card);
         EventManager.DeckUpdated?.Invoke(this);
     }
-
-    private Card DrawCard()
-    {
-        Random rnd = new();
-        Card card = null;
-        if (CardsInDeck.Count > 0)
-        {
-            int randomNumber = rnd.Next(0, CardsInDeck.Count);
-            card = CardsInDeck.ElementAt(randomNumber);
-            CardsInDeck.RemoveAt(randomNumber);
-        }
-        EventManager.DeckUpdated?.Invoke(this);
-        return card;
-    }
 }

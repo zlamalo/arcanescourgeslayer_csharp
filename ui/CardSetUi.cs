@@ -24,20 +24,17 @@ public partial class CardSetUI : Control
             if (cardsCount - i > 0)
             {
                 CardUI currentCardUi = GetChild<CardUI>(i);
-                if (currentCardUi.CurrentCard != newCard)
-                {
-                    currentCardUi.UpdateCard(newCard);
-                }
+                currentCardUi.UpdateCard(newCard);
             }
             else
             {
                 var cardUI = cardUIScene.Instantiate<CardUI>();
                 cardUI.UpdateCard(newCard);
                 AddChild(cardUI);
+                UpdateCards(); // new card added, update positions
             }
         }
         CurrentCardSet = cardSet;
-        UpdateCards(); // maybe this should happen only if number of cards changed
     }
 
     private void UpdateCards()

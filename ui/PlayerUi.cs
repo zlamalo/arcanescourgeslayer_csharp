@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 
@@ -10,7 +12,7 @@ public partial class PlayerUI : Control
 	{
 		EventManager.BuffsUpdated += OnBuffChanged;
 		EventManager.DeckUpdated += OnDeckUpdated;
-		EventManager.CardSetsUpdated += OnCardSetsUpdated;
+		EventManager.CardSetUpdated += OnCardSetUpdated;
 	}
 
 	public override void _ExitTree()
@@ -18,7 +20,7 @@ public partial class PlayerUI : Control
 		base._ExitTree();
 		EventManager.BuffsUpdated -= OnBuffChanged;
 		EventManager.DeckUpdated -= OnDeckUpdated;
-		EventManager.CardSetsUpdated -= OnCardSetsUpdated;
+		EventManager.CardSetUpdated -= OnCardSetUpdated;
 	}
 
 	private void OnDeckUpdated(Deck deck)
@@ -50,27 +52,22 @@ public partial class PlayerUI : Control
 		}
 	}
 
-	private void OnCardSetsUpdated(Array<CardSet> cardSets)
+	private void OnCardSetUpdated(CardSet cardSet)
 	{
-		var currentCardSetsCount = GetNode("BottomUI").GetNode("CardSets").GetChildCount();
+		var children = GetNode("BottomUI").GetNode("CardSets").GetChildren();
+		var currentCardSetUI = children.Where(c => c.GetType() == typeof(CardSetUI))
+			.Cast<CardSetUI>()
+			.FirstOrDefault(cs => cs.CurrentCardSet.Id == cardSet.Id);
 
-		for (int i = 0; i < cardSets.Count; i++)
+		if (currentCardSetUI != null)
 		{
-			var cardSet = cardSets[i];
-			if (currentCardSetsCount - i > 0)
-			{
-				CardSetUI currentCardSetUI = GetNode("BottomUI").GetNode("CardSets").GetChild<CardSetUI>(i);
-				if (cardSet != currentCardSetUI.CurrentCardSet)
-				{
-					currentCardSetUI.UpdateCardSet(cardSet);
-				}
-			}
-			else
-			{
-				CardSetUI cardSetUI = cardSetUIScene.Instantiate<CardSetUI>();
-				cardSetUI.UpdateCardSet(cardSet);
-				GetNode("BottomUI").GetNode("CardSets").AddChild(cardSetUI);
-			}
+			currentCardSetUI.UpdateCardSet(cardSet);
+		}
+		else
+		{
+			CardSetUI cardSetUI = cardSetUIScene.Instantiate<CardSetUI>();
+			cardSetUI.UpdateCardSet(cardSet);
+			GetNode("BottomUI").GetNode("CardSets").AddChild(cardSetUI);
 		}
 		UpdateCardSetsPositions();
 	}

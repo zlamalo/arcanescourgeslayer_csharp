@@ -22,7 +22,10 @@ public partial class Player : BaseEntity
 		hands = GetNode<Node2D>("Hands");
 
 		EventManager.DeckUpdated?.Invoke(PlayerRes.Deck);
-		EventManager.CardSetsUpdated?.Invoke(PlayerRes.CardSets);
+		foreach (var cardSet in PlayerRes.CardSets)
+		{
+			EventManager.CardSetUpdated?.Invoke(cardSet);
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
