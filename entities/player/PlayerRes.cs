@@ -32,7 +32,6 @@ public partial class PlayerRes : EntityRes
     public void RemoveCardFromSet(Guid setId, int position)
     {
         var cardSet = GetCardSetById(setId);
-        GD.Print(position);
         if (cardSet != null && position >= 0 && position < cardSet.CardsInSet.Count)
         {
             cardSet.CardsInSet[position] = null;

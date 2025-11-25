@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://whlxopvr4loe"]
+[gd_scene load_steps=5 format=3 uid="uid://whlxopvr4loe"]
 
 [ext_resource type="Script" path="res://ui/InventoryUI.cs" id="1_pb84q"]
 [ext_resource type="FontFile" uid="uid://lnxn7lyi65nn" path="res://assets/PixelFont.TTF" id="2_3cek3"]
-[ext_resource type="PackedScene" uid="uid://dwp3t6xntbyq5" path="res://ui/CardUI.tscn" id="2_xdusq"]
 [ext_resource type="Script" path="res://ui/DeckCardsUI.cs" id="4_3fbdn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8pplf"]
@@ -51,23 +50,6 @@ anchor_bottom = 0.699738
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
-
-[node name="CardSet0" type="HBoxContainer" parent="LeftSide/CardSets"]
-visible = false
-layout_mode = 2
-
-[node name="CardUI" parent="LeftSide/CardSets/CardSet0" instance=ExtResource("2_xdusq")]
-layout_mode = 2
-
-[node name="CardSet1" type="HBoxContainer" parent="LeftSide/CardSets"]
-visible = false
-layout_mode = 2
-
-[node name="CardUI" parent="LeftSide/CardSets/CardSet1" instance=ExtResource("2_xdusq")]
-layout_mode = 2
-
-[node name="CardUI2" parent="LeftSide/CardSets/CardSet1" instance=ExtResource("2_xdusq")]
-layout_mode = 2
 
 [node name="RightSide" type="Panel" parent="."]
 layout_mode = 1
