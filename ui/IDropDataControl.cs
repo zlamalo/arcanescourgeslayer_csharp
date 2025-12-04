@@ -1,13 +1,14 @@
 
 /// <summary>
-/// Interface for control nodes that contains dropable data of type T
+/// Interface for control nodes that contains draggable data of type T
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IDropDataControl<T>
+public interface IDragDataControl<T>
 {
     /// <summary>
-    /// Removes the picked data from the this control
+    /// Must be called when data from this control is dropped onto another control
     /// </summary>
-    /// <param name="data"></param>
-    public void RemovePickedData(T data);
+    /// <param name="draggedData">Data that was dragged and now dropped</param>
+    /// <param name="targetData">Dragged data is placed here</param>
+    public void OnDataDropped(T draggedData, T targetData);
 }

@@ -5,8 +5,8 @@ using System.Linq;
 
 public partial class InventoryUI : Control
 {
-    private PackedScene cardUIScene = GD.Load<PackedScene>("res://ui/CardUI.tscn");
-    private PackedScene cardWrapperUIScene = GD.Load<PackedScene>("res://ui/CardWrapperUI.tscn");
+    private PackedScene draggableCardUIScene = GD.Load<PackedScene>("res://ui/DraggableCardUI.tscn");
+    private PackedScene cardPlaceholderUIScene = GD.Load<PackedScene>("res://ui/CardPlaceholderUI.tscn");
 
     private Array<CardSet> cardSets = new();
 
@@ -74,7 +74,7 @@ public partial class InventoryUI : Control
             cardSetsUI.AddChild(cardContainer);
             foreach (Card card in cardSet.CardsInSet)
             {
-                var cardWrapperUI = cardWrapperUIScene.Instantiate<CardWrapperUI>();
+                var cardWrapperUI = cardPlaceholderUIScene.Instantiate<CardPlaceholderUI>();
                 cardWrapperUI.DisplayCard(card, cardSet.Id, cardSet.CardsInSet.IndexOf(card));
                 cardContainer.AddChild(cardWrapperUI);
 
@@ -101,9 +101,9 @@ public partial class InventoryUI : Control
         var deckUI = GetNode<GridContainer>("RightSide/DeckCards");
         foreach (Card card in deck.CardsInDeck)
         {
-            var cardUI = cardUIScene.Instantiate<CardUI>();
-            cardUI.UpdateCard(card);
-            deckUI.AddChild(cardUI);
+            var draggableCardUI = draggableCardUIScene.Instantiate<DraggableCardUI>();
+            draggableCardUI.CardUI.UpdateCard(card);
+            deckUI.AddChild(draggableCardUI);
         }
 
     }

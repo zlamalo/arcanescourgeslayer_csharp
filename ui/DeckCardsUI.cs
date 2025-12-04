@@ -1,34 +1,32 @@
 using Godot;
-using System;
 
-public partial class DeckCardsUI : GridContainer, IDropDataControl<CardUI>
+public partial class DeckCardsUI : GridContainer, IDragDataControl<DraggableCardUI>
 {
-    public void RemovePickedData(CardUI data)
+    private Player Player => GetTree().Root.GetNode<Player>("RootNode/World/Player");
+
+    public void OnDataDropped(DraggableCardUI draggedData, DraggableCardUI targetData)
     {
-        var player = GetTree().Root.GetNode<Player>("RootNode/World/Player");
-        player.PlayerRes.Deck.RemoveCard(data.CurrentCard);
-        RemoveChild(data);
+        Player.PlayerRes.Deck.RemoveCard(draggedData.CardUI.CurrentCard);
+        RemoveChild(draggedData);
     }
 
     public override bool _CanDropData(Vector2 position, Variant data)
     {
-        return data.Obj is CardUI;
+        return data.Obj is DraggableCardUI;
     }
 
     public override void _DropData(Vector2 position, Variant data)
     {
-        if (data.Obj is CardUI card)
+        if (data.Obj is DraggableCardUI droppedCardUI)
         {
-            var parent = card.GetParent();
-            if (parent is IDropDataControl<CardUI> dropDataControl)
+            if (droppedCardUI.GetParent() is IDragDataControl<DraggableCardUI> droppedCardParent)
             {
-                dropDataControl.RemovePickedData(card);
+                droppedCardParent.OnDataDropped(droppedCardUI, null);
             }
-            AddChild(card);
-            card.Position = Vector2.Zero;
+            AddChild(droppedCardUI);
+            droppedCardUI.Position = Vector2.Zero;
 
-            var player = GetTree().Root.GetNode<Player>("RootNode/World/Player");
-            player.PlayerRes.Deck.AddCard(card.CurrentCard);
+            Player.PlayerRes.Deck.AddCard(droppedCardUI.CardUI.CurrentCard);
         }
     }
 }

@@ -3,14 +3,7 @@ using System;
 
 public partial class CardUI : Panel
 {
-	public Card CurrentCard;
-
-	public override Variant _GetDragData(Vector2 atPosition)
-	{
-		var preview = Duplicate() as Control;
-		SetDragPreview(preview);
-		return this;
-	}
+	public Card CurrentCard { get; private set; }
 
 	public void UpdateCard(Card card)
 	{

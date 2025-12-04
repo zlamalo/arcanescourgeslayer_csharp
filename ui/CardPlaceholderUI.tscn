@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://phevskuunsfn"]
 
-[ext_resource type="Script" path="res://ui/CardWrapperUI.cs" id="1_b7qbl"]
+[ext_resource type="Script" path="res://ui/CardPlaceholderUI.cs" id="1_xs5wy"]
 
-[node name="CardWrapperUI" type="Panel"]
+[node name="CardPlaceholderUI" type="Panel"]
 custom_minimum_size = Vector2(16, 24)
 anchors_preset = -1
 anchor_right = 0.013
@@ -11,4 +11,4 @@ offset_right = -0.120001
 offset_bottom = 0.200001
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_b7qbl")
+script = ExtResource("1_xs5wy")
