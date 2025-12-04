@@ -24,7 +24,7 @@ public partial class CardSet : Resource
             {
                 if (card != null)
                 {
-                    card?.Spell.Cast(caster);
+                    card?.Cast(caster);
                     await Task.Delay(50);
                 }
             }

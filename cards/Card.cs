@@ -4,13 +4,6 @@ using Godot;
 [GlobalClass]
 public partial class Card : Resource
 {
-    public Guid Id;
-
-    public Card()
-    {
-        Id = Guid.NewGuid();
-    }
-
     [Export]
     public string CardName;
 
@@ -22,4 +15,17 @@ public partial class Card : Resource
 
     [Export]
     public Spell Spell;
+
+    public Guid Id;
+
+    public Card()
+    {
+        Id = Guid.NewGuid();
+    }
+
+    public void Cast(BaseEntity caster)
+    {
+        Spell.Cast(caster);
+        EventManager.CardCasted?.Invoke(Id);
+    }
 }

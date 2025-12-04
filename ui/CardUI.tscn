@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwp3t6xntbyq5"]
+[gd_scene load_steps=8 format=3 uid="uid://dwp3t6xntbyq5"]
 
 [ext_resource type="Script" path="res://ui/CardUI.cs" id="1_yq75n"]
+[ext_resource type="Texture2D" uid="uid://ddjaq2oecynwu" path="res://assets/cards/AttackBuffCard.png" id="2_u8qkf"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nm54b"]
+blend_mode = 1
 
 [sub_resource type="Animation" id="Animation_8xplv"]
 resource_name = "Hover"
@@ -32,9 +36,50 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteWrapper/Sprite2D/GlowOverlay:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_54nqf"]
+resource_name = "CardCasted"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteWrapper:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteWrapper/Sprite2D/GlowOverlay:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qlr8t"]
 _data = {
+"CardCasted": SubResource("Animation_54nqf"),
 "Hover": SubResource("Animation_8xplv"),
 "RESET": SubResource("Animation_aha1j")
 }
@@ -55,6 +100,12 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(8, 12)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteWrapper"]
+scale = Vector2(1, 0.96)
+
+[node name="GlowOverlay" type="Sprite2D" parent="SpriteWrapper/Sprite2D"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_nm54b")
+texture = ExtResource("2_u8qkf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
