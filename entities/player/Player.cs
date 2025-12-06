@@ -42,14 +42,14 @@ public partial class Player : BaseEntity
 			velocity = Vector2.Zero;
 		}
 
-		if (Input.IsActionJustPressed("ui_left_mouse_button"))
+		if (Input.IsActionPressed("ui_left_mouse_button"))
 		{
-			PlayerRes.CardSets[0].PlaySet(this);
+			TryCastSet(0);
 		}
 
-		if (Input.IsActionJustPressed("ui_right_mouse_button"))
+		if (Input.IsActionPressed("ui_right_mouse_button"))
 		{
-			PlayerRes.CardSets[1].PlaySet(this);
+			TryCastSet(1);
 		}
 
 		Vector2 mousePos = GetLocalMousePosition();
@@ -78,5 +78,14 @@ public partial class Player : BaseEntity
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private void TryCastSet(int index)
+	{
+		var cardSet = PlayerRes.CardSets[index];
+		if (cardSet.Ready)
+		{
+			_ = GetNode<CardManager>("CardManager").CastSet(this, cardSet);
+		}
 	}
 }

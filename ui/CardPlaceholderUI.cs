@@ -40,8 +40,8 @@ public partial class CardPlaceholderUI : Panel, IDragDataControl<DraggableCardUI
         }
         else
         {
-            Player.PlayerRes.RemoveCardFromSet(representedSetId, cardIndex);
-            Player.PlayerRes.AddCardToSet(representedSetId, targetData.CardUI.CurrentCard, cardIndex);
+            //Player.PlayerRes.RemoveCardFromSet(representedSetId, cardIndex);
+            Player.PlayerRes.AddCardToSet(representedSetId, targetData.CardUI.CurrentCard, cardIndex, true);
             draggedData.CardUI.UpdateCard(targetData.CardUI.CurrentCard);
         }
     }
@@ -62,8 +62,8 @@ public partial class CardPlaceholderUI : Panel, IDragDataControl<DraggableCardUI
                 droppedCardParent.OnDataDropped(droppedCardUI, DisplayedCardUI);
             }
 
-            Player.PlayerRes.RemoveCardFromSet(representedSetId, cardIndex);
-            Player.PlayerRes.AddCardToSet(representedSetId, droppedCard, cardIndex);
+            //Player.PlayerRes.RemoveCardFromSet(representedSetId, cardIndex);
+            Player.PlayerRes.AddCardToSet(representedSetId, droppedCard, cardIndex, true);
 
             droppedCardUI.Position = Vector2.Zero;
 

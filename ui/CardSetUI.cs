@@ -13,13 +13,22 @@ public partial class CardSetUI : Control
 
     public CardSet CurrentCardSet;
 
+    public override void _Ready()
+    {
+        EventManager.SetCasted += OnSetCasted;
+    }
+
+    public override void _ExitTree()
+    {
+        EventManager.SetCasted -= OnSetCasted;
+    }
+
     public void UpdateCardSet(CardSet cardSet)
     {
         float cardsCount = GetChildCount();
 
         for (int i = 0; i < cardSet.CardsInSet.Count; i++)
         {
-
             Card newCard = cardSet.CardsInSet[i];
             if (cardsCount - i > 0)
             {
@@ -31,13 +40,13 @@ public partial class CardSetUI : Control
                 var cardUI = cardUIScene.Instantiate<CardUI>();
                 cardUI.UpdateCard(newCard);
                 AddChild(cardUI);
-                UpdateCards(); // new card added, update positions
+                RearangeCards(); // new card added, update positions
             }
         }
         CurrentCardSet = cardSet;
     }
 
-    private void UpdateCards()
+    private void RearangeCards()
     {
         float cardsCount = GetChildCount();
 
@@ -56,7 +65,16 @@ public partial class CardSetUI : Control
             card.Position = new Vector2(i * 15, -10 * yMult);
             card.RotationDegrees = 5 * rotationMult;
         }
-
     }
 
+    private void OnSetCasted(Guid setId, int cooldown)
+    {
+        if (CurrentCardSet != null && CurrentCardSet.Id == setId)
+        {
+            foreach (CardUI cardUI in GetChildren())
+            {
+                cardUI.StartCooldown(cooldown);
+            }
+        }
+    }
 }

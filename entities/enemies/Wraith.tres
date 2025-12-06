@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EnemyRes" load_steps=7 format=3 uid="uid://rg5ml0wo24kj"]
 
-[ext_resource type="Script" path="res://entities/enemies/EnemyRes.cs" id="1_08a0o"]
-[ext_resource type="Script" path="res://effects/Damage.cs" id="1_88s5w"]
+[ext_resource type="Script" uid="uid://c7ccdxyaot3dy" path="res://entities/enemies/EnemyRes.cs" id="1_08a0o"]
+[ext_resource type="Script" uid="uid://bg6lf4ey1mac0" path="res://effects/Damage.cs" id="1_88s5w"]
 [ext_resource type="Texture2D" uid="uid://c12f7gx15raqc" path="res://assets/entities/Wraith.png" id="1_y1tyk"]
-[ext_resource type="Script" path="res://effects/EnemyAttack/SlashAttack.cs" id="2_ubb8h"]
+[ext_resource type="Script" uid="uid://cdnhbphwmkm5a" path="res://effects/EnemyAttack/SlashAttack.cs" id="2_ubb8h"]
 
 [sub_resource type="Resource" id="Resource_80gyy"]
 script = ExtResource("1_88s5w")

@@ -1,10 +1,97 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwp3t6xntbyq5"]
+[gd_scene load_steps=10 format=3 uid="uid://dwp3t6xntbyq5"]
 
-[ext_resource type="Script" path="res://ui/CardUI.cs" id="1_yq75n"]
-[ext_resource type="Texture2D" uid="uid://ddjaq2oecynwu" path="res://assets/cards/AttackBuffCard.png" id="2_u8qkf"]
+[ext_resource type="Script" uid="uid://2pqqd6d7bv2d" path="res://ui/CardUI.cs" id="1_yq75n"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nm54b"]
 blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_ey4q1"]
+resource_name = "Cooldown"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_1uok3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_km5rf"]
+_data = {
+&"Cooldown": SubResource("Animation_ey4q1"),
+&"RESET": SubResource("Animation_1uok3")
+}
+
+[sub_resource type="Animation" id="Animation_54nqf"]
+resource_name = "CardCasted"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteWrapper:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteWrapper/GlowOverlay:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_8xplv"]
 resource_name = "Hover"
@@ -39,7 +126,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpriteWrapper/Sprite2D/GlowOverlay:modulate")
+tracks/1/path = NodePath("SpriteWrapper/GlowOverlay:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -48,40 +135,36 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_54nqf"]
-resource_name = "CardCasted"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteWrapper:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpriteWrapper/CooldownOverlay/CooldownProgressBar:value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+"values": [100.0]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpriteWrapper/Sprite2D/GlowOverlay:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpriteWrapper/CooldownOverlay/CooldownProgressBar:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qlr8t"]
 _data = {
-"CardCasted": SubResource("Animation_54nqf"),
-"Hover": SubResource("Animation_8xplv"),
-"RESET": SubResource("Animation_aha1j")
+&"CardCasted": SubResource("Animation_54nqf"),
+&"Hover": SubResource("Animation_8xplv"),
+&"RESET": SubResource("Animation_aha1j")
 }
 
 [node name="CardUI" type="Panel"]
@@ -100,16 +183,31 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(8, 12)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteWrapper"]
-scale = Vector2(1, 0.96)
 
-[node name="GlowOverlay" type="Sprite2D" parent="SpriteWrapper/Sprite2D"]
+[node name="GlowOverlay" type="Sprite2D" parent="SpriteWrapper"]
 modulate = Color(1, 1, 1, 0)
 material = SubResource("CanvasItemMaterial_nm54b")
-texture = ExtResource("2_u8qkf")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="CooldownOverlay" type="Node2D" parent="SpriteWrapper"]
+
+[node name="CooldownProgressBar" type="TextureProgressBar" parent="SpriteWrapper/CooldownOverlay"]
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 8.0
+offset_bottom = 12.0
+value = 100.0
+fill_mode = 3
+tint_progress = Color(0.14767197, 0.14767176, 0.14767179, 1)
+
+[node name="CooldownAnimationPlayer" type="AnimationPlayer" parent="SpriteWrapper/CooldownOverlay"]
+root_node = NodePath("../CooldownProgressBar")
 libraries = {
-"": SubResource("AnimationLibrary_qlr8t")
+&"": SubResource("AnimationLibrary_km5rf")
+}
+
+[node name="CardAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qlr8t")
 }
 
 [connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]

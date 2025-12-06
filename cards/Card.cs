@@ -18,6 +18,8 @@ public partial class Card : Resource
 
     public Guid Id;
 
+    public int CooldownMs = 200;
+
     public Card()
     {
         Id = Guid.NewGuid();

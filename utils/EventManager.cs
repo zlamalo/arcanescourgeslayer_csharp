@@ -10,4 +10,6 @@ public static class EventManager
     public static Action<int, IBuff> BuffsUpdated;
 
     public static Action<Guid> CardCasted;
+
+    public static Action<Guid, int> SetCasted;
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
@@ -6,29 +7,19 @@ using Godot.Collections;
 [GlobalClass]
 public partial class CardSet : Resource
 {
+    [Export]
+    public Array<Card> CardsInSet;
+
     public Guid Id;
+
+    public bool Ready;
+
+    public int CooldownMs => CardsInSet.ToList().Select(card => card?.CooldownMs ?? 0).Sum();
 
     public CardSet()
     {
         Id = Guid.NewGuid();
-    }
-
-    [Export]
-    public Array<Card> CardsInSet;
-
-    public async Task PlaySet(BaseEntity caster)
-    {
-        if (CardsInSet.Count > 0)
-        {
-            foreach (var card in CardsInSet)
-            {
-                if (card != null)
-                {
-                    card?.Cast(caster);
-                    await Task.Delay(50);
-                }
-            }
-        }
+        Ready = true;
     }
 
     public void AddCard(Card card, int position)

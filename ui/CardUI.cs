@@ -3,6 +3,9 @@ using System;
 
 public partial class CardUI : Panel
 {
+	private AnimationPlayer cardAnimationPlayer;
+	private AnimationPlayer cooldownAnimationPlayer;
+
 	public Card CurrentCard { get; private set; }
 
 	public override void _Ready()
@@ -10,6 +13,8 @@ public partial class CardUI : Panel
 		base._Ready();
 		EventManager.CardCasted += OnCardCasted;
 
+		cardAnimationPlayer = GetNode<AnimationPlayer>("CardAnimationPlayer");
+		cooldownAnimationPlayer = GetNode<AnimationPlayer>("SpriteWrapper/CooldownOverlay/CooldownAnimationPlayer");
 	}
 
 	public override void _ExitTree()
@@ -24,7 +29,16 @@ public partial class CardUI : Panel
 		{
 			CurrentCard = card;
 			GetNode<Sprite2D>("SpriteWrapper/Sprite2D").Texture = card?.Texture;
-			GetNode<Sprite2D>("SpriteWrapper/Sprite2D/GlowOverlay").Texture = card?.Texture;
+			GetNode<Sprite2D>("SpriteWrapper/GlowOverlay").Texture = card?.Texture;
+
+			var cooldownProgressBar = GetNode<TextureProgressBar>("SpriteWrapper/CooldownOverlay/CooldownProgressBar");
+			cooldownProgressBar.TextureProgress = card?.Texture;
+			cooldownProgressBar.Visible = false;
+
+			if (cooldownAnimationPlayer?.IsPlaying() == true)
+			{
+				SetAnimationProgress();
+			}
 		}
 	}
 
@@ -32,19 +46,35 @@ public partial class CardUI : Panel
 	{
 		if (CurrentCard?.Id == cardId)
 		{
-			GetNode<AnimationPlayer>("AnimationPlayer").Play("CardCasted");
+			cardAnimationPlayer.Play("CardCasted");
 		}
+	}
+
+	public void StartCooldown(int cooldownMs)
+	{
+		cooldownAnimationPlayer.SpeedScale = 1000f / cooldownMs;
+		cooldownAnimationPlayer.Play("Cooldown");
+	}
+
+	/// <summary>
+	/// Sets the cooldown animation progress based on elapsed time.
+	/// This is needed when the card UI is updated while a cooldown is in progress.
+	/// </summary>
+	private void SetAnimationProgress()
+	{
+		double animPos = cooldownAnimationPlayer.CurrentAnimationPosition;
+		cooldownAnimationPlayer.Seek(animPos, true);
 	}
 
 	public void OnMouseEntered()
 	{
 		ZIndex = 100;
-		GetNode<AnimationPlayer>("AnimationPlayer").Play("Hover");
+		cardAnimationPlayer.Play("Hover");
 	}
 
 	public void OnMouseExited()
 	{
 		ZIndex = 0;
-		GetNode<AnimationPlayer>("AnimationPlayer").PlayBackwards("Hover");
+		cardAnimationPlayer.PlayBackwards("Hover");
 	}
 }

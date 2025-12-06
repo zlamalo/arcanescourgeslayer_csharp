@@ -22,9 +22,13 @@ public partial class PlayerRes : EntityRes
         return cardSet;
     }
 
-    public void AddCardToSet(Guid setId, Card card, int position)
+    public void AddCardToSet(Guid setId, Card card, int position, bool overwrite = false)
     {
         var cardSet = GetCardSetById(setId);
+        if (overwrite)
+        {
+            cardSet.CardsInSet[position] = null;
+        }
         cardSet?.AddCard(card, position);
         EventManager.CardSetUpdated.Invoke(cardSet);
     }

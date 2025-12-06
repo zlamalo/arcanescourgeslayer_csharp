@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="Projectile" load_steps=5 format=3 uid="uid://c5y8xu871jln3"]
 
-[ext_resource type="Script" path="res://effects/Damage.cs" id="1_3ml7g"]
-[ext_resource type="Script" path="res://effects/projectiles/Projectile.cs" id="1_4huir"]
+[ext_resource type="Script" uid="uid://bg6lf4ey1mac0" path="res://effects/Damage.cs" id="1_3ml7g"]
+[ext_resource type="Script" uid="uid://bk4o8idcvf1d0" path="res://effects/projectiles/Projectile.cs" id="1_4huir"]
 [ext_resource type="Texture2D" uid="uid://cue7mqveoah4b" path="res://assets/projectiles/fireball.png" id="2_fh4af"]
 
 [sub_resource type="Resource" id="Resource_mibch"]
 script = ExtResource("1_3ml7g")
-ElementType = 0
 Value = 20.0
 
 [resource]

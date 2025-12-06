@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://bmoxca378xo46"]
 
-[ext_resource type="Script" path="res://world/RootNode.cs" id="1_1ktmb"]
+[ext_resource type="Script" uid="uid://dktliwuycc121" path="res://world/RootNode.cs" id="1_1ktmb"]
 [ext_resource type="PackedScene" uid="uid://dpyc2drdkgcax" path="res://ui/PlayerUI.tscn" id="1_tummd"]
 [ext_resource type="Texture2D" uid="uid://0slj8e5yhdld" path="res://assets/world/defaultmap.png" id="2_lurcv"]
 [ext_resource type="PackedScene" uid="uid://whlxopvr4loe" path="res://ui/InventoryUI.tscn" id="3_3o1av"]
@@ -76,6 +76,7 @@ script = ExtResource("1_1ktmb")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("1_tummd")]
+process_mode = 1
 size_flags_horizontal = 8
 
 [node name="InventoryUI" parent="CanvasLayer" instance=ExtResource("3_3o1av")]

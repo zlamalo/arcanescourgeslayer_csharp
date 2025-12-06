@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="PlayerRes" load_steps=33 format=3 uid="uid://c1arqwd30dx85"]
 
 [ext_resource type="Resource" uid="uid://c5y8xu871jln3" path="res://effects/projectiles/Fireball.tres" id="1_04c1o"]
-[ext_resource type="Script" path="res://spells/ProjectileSpell.cs" id="2_es4ew"]
-[ext_resource type="Script" path="res://cards/CardSet.cs" id="2_mqgo3"]
+[ext_resource type="Script" uid="uid://b68qykulur10h" path="res://spells/ProjectileSpell.cs" id="2_es4ew"]
+[ext_resource type="Script" uid="uid://xiw1sjpoponl" path="res://cards/CardSet.cs" id="2_mqgo3"]
 [ext_resource type="Texture2D" uid="uid://c6nmwwlh6sohx" path="res://assets/cards/FireballCard.png" id="3_adfgx"]
-[ext_resource type="Script" path="res://cards/Card.cs" id="4_w2mon"]
-[ext_resource type="Script" path="res://cards/Deck.cs" id="5_6psra"]
-[ext_resource type="Script" path="res://spells/BlockSpell.cs" id="6_kmtho"]
-[ext_resource type="Script" path="res://effects/ElementalResistance.cs" id="6_yy5pb"]
-[ext_resource type="Script" path="res://entities/player/PlayerRes.cs" id="7_0v6c7"]
+[ext_resource type="Script" uid="uid://bi3g1lqdyv6dg" path="res://cards/Card.cs" id="4_w2mon"]
+[ext_resource type="Script" uid="uid://dmyl3iwj0wdn2" path="res://cards/Deck.cs" id="5_6psra"]
+[ext_resource type="Script" uid="uid://d3qyfwxffwwyf" path="res://spells/BlockSpell.cs" id="6_kmtho"]
+[ext_resource type="Script" uid="uid://blv4st1u7ywny" path="res://effects/ElementalResistance.cs" id="6_yy5pb"]
+[ext_resource type="Script" uid="uid://b6jcy53oa4hof" path="res://entities/player/PlayerRes.cs" id="7_0v6c7"]
 [ext_resource type="Texture2D" uid="uid://760y7lh3x2wn" path="res://assets/cards/BlockCard.png" id="7_sa6ab"]
-[ext_resource type="Script" path="res://spells/HealSpell.cs" id="8_r28sn"]
+[ext_resource type="Script" uid="uid://b2rg30mpb1h11" path="res://spells/HealSpell.cs" id="8_r28sn"]
 [ext_resource type="Texture2D" uid="uid://cyw4fhbcypu0x" path="res://assets/cards/HealCard.png" id="9_4f6im"]
 
 [sub_resource type="Resource" id="Resource_yxr4p"]
@@ -21,7 +21,6 @@ Projectile = ExtResource("1_04c1o")
 script = ExtResource("4_w2mon")
 CardName = "Fireball"
 Texture = ExtResource("3_adfgx")
-ElementType = 0
 Spell = SubResource("Resource_yxr4p")
 
 [sub_resource type="Resource" id="Resource_fui3u"]
@@ -32,21 +31,18 @@ Projectile = ExtResource("1_04c1o")
 script = ExtResource("4_w2mon")
 CardName = "Fireball"
 Texture = ExtResource("3_adfgx")
-ElementType = 0
 Spell = SubResource("Resource_fui3u")
 
 [sub_resource type="Resource" id="Resource_es2d5"]
 script = ExtResource("4_w2mon")
 CardName = "Fireball"
 Texture = ExtResource("3_adfgx")
-ElementType = 0
 Spell = SubResource("Resource_fui3u")
 
 [sub_resource type="Resource" id="Resource_yduto"]
 script = ExtResource("4_w2mon")
 CardName = "Fireball"
 Texture = ExtResource("3_adfgx")
-ElementType = 0
 Spell = SubResource("Resource_fui3u")
 
 [sub_resource type="Resource" id="Resource_ixl63"]
@@ -99,7 +95,6 @@ Projectile = ExtResource("1_04c1o")
 script = ExtResource("4_w2mon")
 CardName = "Fireball"
 Texture = ExtResource("3_adfgx")
-ElementType = 0
 Spell = SubResource("Resource_1hv3j")
 
 [sub_resource type="Resource" id="Resource_4cvpu"]
@@ -120,7 +115,6 @@ Value = 50.0
 
 [sub_resource type="Resource" id="Resource_ckg4j"]
 script = ExtResource("6_yy5pb")
-ElementType = 0
 Value = -50.0
 
 [resource]
