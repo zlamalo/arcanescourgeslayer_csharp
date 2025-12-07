@@ -13,8 +13,7 @@ public partial class RootNode : Node2D
     private void ToggleInventory()
     {
         var inventoryNode = GetNode<InventoryUI>("CanvasLayer/InventoryUI");
-        inventoryNode.Visible = !inventoryNode.Visible;
-        inventoryNode.ToggleInventory(inventoryNode.Visible);
+        inventoryNode.ToggleInventory();
         GetTree().Paused = inventoryNode.Visible;
     }
 

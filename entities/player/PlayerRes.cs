@@ -46,4 +46,29 @@ public partial class PlayerRes : EntityRes
             GD.PrintErr("Card not found in the specified CardSet.");
         }
     }
+
+    public void SwapCardsInSets(Guid setIdA, int positionA, Guid setIdB, int positionB)
+    {
+        var cardSetA = GetCardSetById(setIdA);
+        var cardSetB = GetCardSetById(setIdB);
+
+        if (cardSetA == null || cardSetB == null)
+        {
+            GD.PrintErr("One or both CardSets not found for swapping.");
+            return;
+        }
+
+        if (positionA < 0 || positionA >= cardSetA.CardsInSet.Count ||
+            positionB < 0 || positionB >= cardSetB.CardsInSet.Count)
+        {
+            GD.PrintErr("One or both positions are out of bounds for swapping.");
+            return;
+        }
+
+        (cardSetB.CardsInSet[positionB], cardSetA.CardsInSet[positionA]) =
+        (cardSetA.CardsInSet[positionA], cardSetB.CardsInSet[positionB]);
+
+        EventManager.CardSetUpdated.Invoke(cardSetA);
+        EventManager.CardSetUpdated.Invoke(cardSetB);
+    }
 }

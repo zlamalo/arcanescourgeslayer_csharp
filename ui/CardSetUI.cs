@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class CardSetUI : Control
 {
@@ -71,7 +72,7 @@ public partial class CardSetUI : Control
     {
         if (CurrentCardSet != null && CurrentCardSet.Id == setId)
         {
-            foreach (CardUI cardUI in GetChildren())
+            foreach (CardUI cardUI in GetChildren().Cast<CardUI>())
             {
                 cardUI.StartCooldown(cooldown);
             }

@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public partial class CardPlaceholderUI : Panel, IDragDataControl<DraggableCardUI>
+public partial class CardPlaceholderUI : Panel
 {
     private PackedScene draggableCardUIScene = GD.Load<PackedScene>("res://ui/DraggableCardUI.tscn");
 
     private Player Player => GetTree().Root.GetNode<Player>("RootNode/World/Player");
 
-    private Guid representedSetId;
+    private Guid setId;
 
     private int cardIndex;
 
@@ -15,37 +15,31 @@ public partial class CardPlaceholderUI : Panel, IDragDataControl<DraggableCardUI
 
     public void DisplayCard(Card card, Guid setId, int cardIndex)
     {
-        representedSetId = setId;
+        this.setId = setId;
         this.cardIndex = cardIndex;
 
         if (card != null)
         {
-            var draggableCardUI = draggableCardUIScene.Instantiate<DraggableCardUI>();
-            draggableCardUI.CardUI.UpdateCard(card);
-            AddChild(draggableCardUI);
-        }
-    }
-
-    /// <summary>
-    /// Must be called when data from this control is dropped onto another control
-    /// </summary>
-    /// <param name="draggedData">Is the same object as DisplayedCardUI</param>
-    /// <param name="targetData"></param>
-    public void OnDataDropped(DraggableCardUI draggedData, DraggableCardUI targetData)
-    {
-        if (targetData == null)
-        {
-            Player.PlayerRes.RemoveCardFromSet(representedSetId, cardIndex);
-            RemoveChild(draggedData);
+            if (DisplayedCardUI != null)
+            {
+                DisplayedCardUI.UpdateCard(card, setId, cardIndex);
+                return;
+            }
+            else
+            {
+                var draggableCardUI = draggableCardUIScene.Instantiate<DraggableCardUI>();
+                draggableCardUI.UpdateCard(card, setId, cardIndex);
+                AddChild(draggableCardUI);
+            }
         }
         else
         {
-            //Player.PlayerRes.RemoveCardFromSet(representedSetId, cardIndex);
-            Player.PlayerRes.AddCardToSet(representedSetId, targetData.CardUI.CurrentCard, cardIndex, true);
-            draggedData.CardUI.UpdateCard(targetData.CardUI.CurrentCard);
+            if (DisplayedCardUI != null)
+            {
+                RemoveChild(DisplayedCardUI);
+            }
         }
     }
-
 
     public override bool _CanDropData(Vector2 position, Variant data)
     {
@@ -56,24 +50,38 @@ public partial class CardPlaceholderUI : Panel, IDragDataControl<DraggableCardUI
     {
         if (data.Obj is DraggableCardUI droppedCardUI)
         {
-            var droppedCard = droppedCardUI.CardUI.CurrentCard; // copy of card because droppedCardUI is modified in OnDataDropped
-            if (droppedCardUI.GetParent() is IDragDataControl<DraggableCardUI> droppedCardParent)
+            if (droppedCardUI.SetId == default && droppedCardUI.CardIndex == default)
             {
-                droppedCardParent.OnDataDropped(droppedCardUI, DisplayedCardUI);
-            }
-
-            //Player.PlayerRes.RemoveCardFromSet(representedSetId, cardIndex);
-            Player.PlayerRes.AddCardToSet(representedSetId, droppedCard, cardIndex, true);
-
-            droppedCardUI.Position = Vector2.Zero;
-
-            if (DisplayedCardUI != null)
-            {
-                DisplayedCardUI?.CardUI.UpdateCard(droppedCard);
+                // remove from deck
+                var deckCard = droppedCardUI.CardUI.CurrentCard;
+                Player.PlayerRes.Deck.RemoveCard(droppedCardUI.CardUI.CurrentCard);
+                if (DisplayedCardUI == null)
+                {
+                    // add to new set
+                    Player.PlayerRes.AddCardToSet(setId, deckCard, cardIndex, true);
+                }
+                else
+                {
+                    // swap with existing card in set
+                    var existingCard = DisplayedCardUI.CardUI.CurrentCard;
+                    Player.PlayerRes.AddCardToSet(setId, deckCard, cardIndex, true);
+                    Player.PlayerRes.Deck.AddCard(existingCard);
+                }
             }
             else
             {
-                AddChild(droppedCardUI);
+                if (DisplayedCardUI == null)
+                {
+                    // remove from original set
+                    Player.PlayerRes.RemoveCardFromSet(droppedCardUI.SetId, droppedCardUI.CardIndex);
+                    // add to new set
+                    Player.PlayerRes.AddCardToSet(setId, droppedCardUI.CardUI.CurrentCard, cardIndex, true);
+                }
+                else
+                {
+                    // swap cards between sets
+                    Player.PlayerRes.SwapCardsInSets(droppedCardUI.SetId, droppedCardUI.CardIndex, setId, cardIndex);
+                }
             }
         }
     }

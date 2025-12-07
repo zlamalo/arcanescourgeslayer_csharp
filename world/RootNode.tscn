@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://0slj8e5yhdld" path="res://assets/world/defaultmap.png" id="2_lurcv"]
 [ext_resource type="PackedScene" uid="uid://whlxopvr4loe" path="res://ui/InventoryUI.tscn" id="3_3o1av"]
 [ext_resource type="Texture2D" uid="uid://c6e7040dijvub" path="res://assets/world/tileset.png" id="3_mfhkn"]
-[ext_resource type="PackedScene" uid="uid://b6aehpax266r5" path="res://entities/player/Player.tscn" id="4_0pkri"]
+[ext_resource type="PackedScene" path="res://entities/player/Player.tscn" id="4_0pkri"]
 [ext_resource type="PackedScene" uid="uid://dc8kpipewl0he" path="res://entities/Spawner.tscn" id="5_wsrwu"]
 [ext_resource type="PackedScene" uid="uid://dljblhdtedvyh" path="res://entities/enemies/EnemyBase.tscn" id="6_b0k22"]
 [ext_resource type="Resource" uid="uid://m3ksdgk45ikv" path="res://entities/enemies/Dummy.tres" id="7_d1sud"]
