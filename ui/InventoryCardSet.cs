@@ -27,9 +27,9 @@ public partial class InventoryCardSet : HBoxContainer
         cardSetId = cardSet.Id;
 
         var childCount = GetChildCount();
-        for (int i = 0; i < cardSet.CardsInSet.Count; i++)
+        for (int i = 0; i < cardSet.Cards.Count; i++)
         {
-            var card = cardSet.CardsInSet[i];
+            var card = cardSet.Cards[i];
             if (childCount - i > 0)
             {
                 var existingCardUI = GetChild<CardPlaceholderUI>(i);

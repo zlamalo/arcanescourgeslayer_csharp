@@ -1,23 +1,23 @@
 using Godot;
-using Godot.Collections;
-using System;
-using System.Linq;
 
 [GlobalClass]
-public partial class Deck : Resource
+public partial class Deck : CardCollection
 {
-    [Export]
-    public Array<Card> CardsInDeck;
-
     public void AddCard(Card card)
     {
-        CardsInDeck.Add(card);
+        Cards.Add(card);
         EventManager.DeckUpdated?.Invoke(this);
     }
 
-    public void RemoveCard(Card card)
+    public override void RemoveCard(Card card)
     {
-        CardsInDeck.Remove(card);
+        Cards.Remove(card);
+        Updated();
+    }
+
+    public override void Updated()
+    {
         EventManager.DeckUpdated?.Invoke(this);
     }
+
 }

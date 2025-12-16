@@ -32,31 +32,24 @@ public partial class DeckCardsUI : GridContainer
     {
         if (data.Obj is DraggableCardUI droppedCardUI)
         {
-            Player.PlayerRes.RemoveCardFromSet(droppedCardUI.SetId, droppedCardUI.CardIndex);
-            Player.PlayerRes.Deck.AddCard(droppedCardUI.CardUI.CurrentCard);
+            Player.PlayerRes.RemoveCardFromCollection(droppedCardUI.CollectionId, droppedCardUI.CardUI.Card.Id);
+            Player.PlayerRes.Deck.AddCard(droppedCardUI.CardUI.Card);
         }
     }
 
     public void OnDeckUpdated(Deck newDeck)
     {
-        var newCards = newDeck.CardsInDeck.Except(currentCards ?? []).ToList();
-        foreach (Card card in newCards)
+        var children = GetChildren();
+        foreach (Node child in children)
+        {
+            RemoveChild(child);
+        }
+        foreach (Card card in newDeck.Cards)
         {
             var draggableCardUI = draggableCardUIScene.Instantiate<DraggableCardUI>();
-            draggableCardUI.CardUI.UpdateCard(card);
+            draggableCardUI.UpdateCard(card, newDeck.Id);
             AddChild(draggableCardUI);
         }
 
-        var removedCards = (currentCards ?? []).Except(newDeck.CardsInDeck).ToList();
-        foreach (Card card in removedCards)
-        {
-            var cardUIToRemove = GetChildren().OfType<DraggableCardUI>().Where(c => c.CardUI.CurrentCard.Id == card.Id).FirstOrDefault();
-            if (cardUIToRemove != null)
-            {
-                RemoveChild(cardUIToRemove);
-            }
-        }
-
-        currentCards = newDeck.CardsInDeck.Duplicate();
     }
 }

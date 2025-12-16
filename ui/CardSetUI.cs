@@ -28,9 +28,9 @@ public partial class CardSetUI : Control
     {
         float cardsCount = GetChildCount();
 
-        for (int i = 0; i < cardSet.CardsInSet.Count; i++)
+        for (int i = 0; i < cardSet.Cards.Count; i++)
         {
-            Card newCard = cardSet.CardsInSet[i];
+            Card newCard = cardSet.Cards[i];
             if (cardsCount - i > 0)
             {
                 CardUI currentCardUi = GetChild<CardUI>(i);

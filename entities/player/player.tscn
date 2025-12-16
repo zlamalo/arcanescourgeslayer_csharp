@@ -1,14 +1,129 @@
-[gd_scene load_steps=25 format=3 uid="uid://cvfo36rh117ax"]
+[gd_scene load_steps=55 format=3 uid="uid://dgupkrke040g"]
 
 [ext_resource type="Script" uid="uid://6w8xjxut1qbj" path="res://entities/player/Player.cs" id="1_lxq7a"]
-[ext_resource type="Resource" uid="uid://c1arqwd30dx85" path="res://entities/player/DefaultPlayer.tres" id="2_3rd7e"]
+[ext_resource type="Script" uid="uid://bi3g1lqdyv6dg" path="res://cards/Card.cs" id="2_4fbvh"]
 [ext_resource type="Texture2D" uid="uid://dinpdyewh22py" path="res://assets/entities/wizard_Front.png" id="2_igcre"]
 [ext_resource type="Texture2D" uid="uid://clybjasbr3bme" path="res://assets/entities/wizard_Back.png" id="3_28x2r"]
+[ext_resource type="Resource" uid="uid://c5y8xu871jln3" path="res://effects/projectiles/Fireball.tres" id="3_ux552"]
+[ext_resource type="Script" uid="uid://b68qykulur10h" path="res://spells/ProjectileSpell.cs" id="4_3uni3"]
 [ext_resource type="Texture2D" uid="uid://bb8pw8sbue5yp" path="res://assets/entities/wizard_Left.png" id="4_7mbrk"]
+[ext_resource type="Texture2D" uid="uid://c6nmwwlh6sohx" path="res://assets/cards/FireballCard.png" id="5_d168t"]
 [ext_resource type="Texture2D" uid="uid://ceihm2nswj4le" path="res://assets/entities/wizard_Right.png" id="5_jdux7"]
 [ext_resource type="Texture2D" uid="uid://bhffdo36r4neg" path="res://assets/entities/LeftHand.png" id="6_d8fml"]
+[ext_resource type="Script" uid="uid://xiw1sjpoponl" path="res://cards/CardSet.cs" id="6_oj2y3"]
 [ext_resource type="Texture2D" uid="uid://bgc5nex0y4pd6" path="res://assets/entities/RightHand.png" id="7_bcapg"]
+[ext_resource type="Script" uid="uid://d3qyfwxffwwyf" path="res://spells/BlockSpell.cs" id="7_pnvcq"]
+[ext_resource type="Texture2D" uid="uid://760y7lh3x2wn" path="res://assets/cards/BlockCard.png" id="8_3o0g8"]
+[ext_resource type="Script" uid="uid://b2rg30mpb1h11" path="res://spells/HealSpell.cs" id="9_minwf"]
 [ext_resource type="Script" uid="uid://i7rrpjtscy08" path="res://entities/player/CardManager.cs" id="9_q57vx"]
+[ext_resource type="Texture2D" uid="uid://cyw4fhbcypu0x" path="res://assets/cards/HealCard.png" id="10_btcch"]
+[ext_resource type="Script" uid="uid://dmyl3iwj0wdn2" path="res://cards/Deck.cs" id="11_unwxu"]
+[ext_resource type="Script" uid="uid://blv4st1u7ywny" path="res://effects/ElementalResistance.cs" id="12_2fpie"]
+[ext_resource type="Script" uid="uid://b6jcy53oa4hof" path="res://entities/player/PlayerRes.cs" id="13_i3i7k"]
+
+[sub_resource type="Resource" id="Resource_yxr4p"]
+script = ExtResource("4_3uni3")
+Projectile = ExtResource("3_ux552")
+
+[sub_resource type="Resource" id="Resource_m3vrt"]
+script = ExtResource("2_4fbvh")
+CardName = "Fireball"
+Texture = ExtResource("5_d168t")
+Spell = SubResource("Resource_yxr4p")
+
+[sub_resource type="Resource" id="Resource_5qbdv"]
+script = ExtResource("2_4fbvh")
+CardName = "Fireball"
+Texture = ExtResource("5_d168t")
+Spell = SubResource("Resource_yxr4p")
+
+[sub_resource type="Resource" id="Resource_wbbrj"]
+script = ExtResource("2_4fbvh")
+CardName = "Fireball"
+Texture = ExtResource("5_d168t")
+Spell = SubResource("Resource_yxr4p")
+
+[sub_resource type="Resource" id="Resource_m1mwl"]
+script = ExtResource("2_4fbvh")
+CardName = "Fireball"
+Texture = ExtResource("5_d168t")
+Spell = SubResource("Resource_yxr4p")
+
+[sub_resource type="Resource" id="Resource_ixl63"]
+script = ExtResource("6_oj2y3")
+Cards = Array[ExtResource("2_4fbvh")]([SubResource("Resource_m3vrt"), SubResource("Resource_5qbdv"), SubResource("Resource_wbbrj"), SubResource("Resource_m1mwl")])
+
+[sub_resource type="Resource" id="Resource_htghs"]
+script = ExtResource("7_pnvcq")
+
+[sub_resource type="Resource" id="Resource_ck0hy"]
+script = ExtResource("2_4fbvh")
+CardName = "Block"
+Texture = ExtResource("8_3o0g8")
+ElementType = 1
+Spell = SubResource("Resource_htghs")
+
+[sub_resource type="Resource" id="Resource_fs2qx"]
+script = ExtResource("2_4fbvh")
+CardName = "Block"
+Texture = ExtResource("8_3o0g8")
+ElementType = 1
+Spell = SubResource("Resource_htghs")
+
+[sub_resource type="Resource" id="Resource_dsqg5"]
+script = ExtResource("9_minwf")
+
+[sub_resource type="Resource" id="Resource_g3kjw"]
+script = ExtResource("2_4fbvh")
+CardName = "Heal"
+Texture = ExtResource("10_btcch")
+ElementType = 3
+Spell = SubResource("Resource_dsqg5")
+
+[sub_resource type="Resource" id="Resource_f2vir"]
+script = ExtResource("2_4fbvh")
+CardName = "Heal"
+Texture = ExtResource("10_btcch")
+ElementType = 3
+Spell = SubResource("Resource_dsqg5")
+
+[sub_resource type="Resource" id="Resource_i0xqo"]
+script = ExtResource("6_oj2y3")
+Cards = Array[ExtResource("2_4fbvh")]([SubResource("Resource_ck0hy"), SubResource("Resource_fs2qx"), SubResource("Resource_g3kjw"), SubResource("Resource_f2vir"), null])
+
+[sub_resource type="Resource" id="Resource_21jlj"]
+script = ExtResource("2_4fbvh")
+CardName = "Fireball"
+Texture = ExtResource("5_d168t")
+Spell = SubResource("Resource_yxr4p")
+
+[sub_resource type="Resource" id="Resource_5v685"]
+script = ExtResource("2_4fbvh")
+CardName = "Heal"
+Texture = ExtResource("10_btcch")
+ElementType = 3
+Spell = SubResource("Resource_dsqg5")
+
+[sub_resource type="Resource" id="Resource_hebnp"]
+script = ExtResource("11_unwxu")
+Cards = Array[ExtResource("2_4fbvh")]([SubResource("Resource_21jlj"), SubResource("Resource_5v685")])
+
+[sub_resource type="Resource" id="Resource_6pr43"]
+script = ExtResource("12_2fpie")
+ElementType = 1
+Value = 50.0
+
+[sub_resource type="Resource" id="Resource_ckg4j"]
+script = ExtResource("12_2fpie")
+Value = -50.0
+
+[sub_resource type="Resource" id="Resource_qg4jd"]
+script = ExtResource("13_i3i7k")
+Deck = SubResource("Resource_hebnp")
+CardSets = Array[Object]([SubResource("Resource_ixl63"), SubResource("Resource_i0xqo")])
+MovementSpeed = 200.0
+MaxHP = 100.0
+ElementalResistances = Array[Object]([SubResource("Resource_6pr43"), SubResource("Resource_ckg4j")])
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x0rp3"]
 radius = 6.0
@@ -141,7 +256,7 @@ collision_layer = 2
 collision_mask = 257
 slide_on_ceiling = false
 script = ExtResource("1_lxq7a")
-PlayerRes = ExtResource("2_3rd7e")
+PlayerRes = SubResource("Resource_qg4jd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_x0rp3")

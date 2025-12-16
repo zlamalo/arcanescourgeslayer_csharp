@@ -26,7 +26,7 @@ public partial class PlayerUI : Control
 	private void OnDeckUpdated(Deck deck)
 	{
 		Label deckSizeLabel = GetNode("BottomUI").GetNode("Deck").GetNode<Label>("DeckSize");
-		deckSizeLabel.Text = deck.CardsInDeck.Count + "cards in deck";
+		deckSizeLabel.Text = deck.Cards.Count + "cards in deck";
 	}
 
 	private void OnBuffChanged(int buffCount, IBuff buff)

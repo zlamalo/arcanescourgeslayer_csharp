@@ -6,69 +6,81 @@ using Godot.Collections;
 [GlobalClass]
 public partial class PlayerRes : EntityRes
 {
+    private Array<CardCollection> CardCollections => [.. CardSets.Cast<CardCollection>().Concat([Deck])];
+
     [Export]
     public Deck Deck;
 
     [Export]
     public Array<CardSet> CardSets;
 
-    public CardSet GetCardSetById(Guid id)
+    public T GetCardCollectionById<T>(Guid id) where T : CardCollection
     {
-        var cardSet = CardSets.Where(x => x.Id == id).FirstOrDefault();
-        if (cardSet == null)
+        var cardCollection = CardCollections.FirstOrDefault(x => x.Id == id);
+        if (cardCollection is T typedCollection)
         {
-            GD.PrintErr("CardSet with the given ID not found.");
+            return typedCollection;
         }
-        return cardSet;
+        GD.PrintErr("CardCollection with the given ID not found.");
+        return null;
     }
 
-    public void AddCardToSet(Guid setId, Card card, int position, bool overwrite = false)
+    public CardCollection GetCardCollectionById(Guid id)
     {
-        var cardSet = GetCardSetById(setId);
-        if (overwrite)
-        {
-            cardSet.CardsInSet[position] = null;
-        }
-        cardSet?.AddCard(card, position);
-        EventManager.CardSetUpdated.Invoke(cardSet);
+        return GetCardCollectionById<CardCollection>(id);
     }
 
-    public void RemoveCardFromSet(Guid setId, int position)
+    public void AddCardToSet(Guid setId, Card card, int position)
     {
-        var cardSet = GetCardSetById(setId);
-        if (cardSet != null && position >= 0 && position < cardSet.CardsInSet.Count)
+        var cardSet = GetCardCollectionById<CardSet>(setId);
+        if (cardSet != null)
         {
-            cardSet.CardsInSet[position] = null;
-            EventManager.CardSetUpdated.Invoke(cardSet);
+            cardSet.AddCard(card, position);
+            cardSet.Updated();
+        }
+    }
+
+    public void RemoveCardFromCollection(Guid collectionId, Guid cardId)
+    {
+        var collection = GetCardCollectionById(collectionId);
+        var card = collection?.GetCardById(cardId);
+        if (card != null)
+        {
+            collection.RemoveCard(card);
         }
         else
         {
-            GD.PrintErr("Card not found in the specified CardSet.");
+            GD.PrintErr($"Card not found in the specified CardCollection of type: {collection.GetType}.");
         }
     }
 
-    public void SwapCardsInSets(Guid setIdA, int positionA, Guid setIdB, int positionB)
+    public void SwapCardsInCollections(Guid collectionIdA, Guid cardIdA, Guid collectionIdB, Guid cardIdB)
     {
-        var cardSetA = GetCardSetById(setIdA);
-        var cardSetB = GetCardSetById(setIdB);
+        var cardCollectionA = GetCardCollectionById(collectionIdA);
+        var cardCollectionB = GetCardCollectionById(collectionIdB);
 
-        if (cardSetA == null || cardSetB == null)
+        if (cardCollectionA == null || cardCollectionB == null)
         {
-            GD.PrintErr("One or both CardSets not found for swapping.");
+            GD.PrintErr("One or both CardCollections not found for swapping.");
             return;
         }
 
-        if (positionA < 0 || positionA >= cardSetA.CardsInSet.Count ||
-            positionB < 0 || positionB >= cardSetB.CardsInSet.Count)
+        var cardA = cardCollectionA.GetCardById(cardIdA);
+        var cardB = cardCollectionB.GetCardById(cardIdB);
+
+        var indexA = cardCollectionA.Cards.IndexOf(cardA);
+        var indexB = cardCollectionB.Cards.IndexOf(cardB);
+
+        if (indexA == -1 || indexB == -1)
         {
-            GD.PrintErr("One or both positions are out of bounds for swapping.");
+            GD.PrintErr("One or both Cards not found for swapping.");
             return;
         }
 
-        (cardSetB.CardsInSet[positionB], cardSetA.CardsInSet[positionA]) =
-        (cardSetA.CardsInSet[positionA], cardSetB.CardsInSet[positionB]);
+        (cardCollectionB.Cards[indexB], cardCollectionA.Cards[indexA]) =
+        (cardCollectionA.Cards[indexA], cardCollectionB.Cards[indexB]);
 
-        EventManager.CardSetUpdated.Invoke(cardSetA);
-        EventManager.CardSetUpdated.Invoke(cardSetB);
+        cardCollectionA.Updated();
+        cardCollectionB.Updated();
     }
 }

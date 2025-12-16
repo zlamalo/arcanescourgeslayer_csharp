@@ -8,8 +8,7 @@ public partial class DraggableCardUI : Control
 {
     public CardUI CardUI => GetNode<CardUI>("CardUI");
 
-    public Guid SetId;
-    public int CardIndex;
+    public Guid CollectionId;
 
     public override Variant _GetDragData(Vector2 atPosition)
     {
@@ -18,10 +17,9 @@ public partial class DraggableCardUI : Control
         return this;
     }
 
-    public void UpdateCard(Card card, Guid setId, int cardIndex)
+    public void UpdateCard(Card card, Guid collectionId)
     {
-        SetId = setId;
-        CardIndex = cardIndex;
+        CollectionId = collectionId;
         CardUI.UpdateCard(card);
     }
 }

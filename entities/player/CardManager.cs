@@ -5,12 +5,12 @@ public partial class CardManager : Node
 {
 	public async Task CastSet(BaseEntity caster, CardSet cardSet)
 	{
-		if (!cardSet.Ready || cardSet.CardsInSet.Count == 0)
+		if (!cardSet.Ready || cardSet.Cards.Count == 0)
 			return;
 
 		cardSet.Ready = false;
 
-		foreach (var card in cardSet.CardsInSet)
+		foreach (var card in cardSet.Cards)
 		{
 			if (card != null)
 			{

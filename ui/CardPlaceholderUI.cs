@@ -22,13 +22,13 @@ public partial class CardPlaceholderUI : Panel
         {
             if (DisplayedCardUI != null)
             {
-                DisplayedCardUI.UpdateCard(card, setId, cardIndex);
+                DisplayedCardUI.UpdateCard(card, setId);
                 return;
             }
             else
             {
                 var draggableCardUI = draggableCardUIScene.Instantiate<DraggableCardUI>();
-                draggableCardUI.UpdateCard(card, setId, cardIndex);
+                draggableCardUI.UpdateCard(card, setId);
                 AddChild(draggableCardUI);
             }
         }
@@ -50,38 +50,17 @@ public partial class CardPlaceholderUI : Panel
     {
         if (data.Obj is DraggableCardUI droppedCardUI)
         {
-            if (droppedCardUI.SetId == default && droppedCardUI.CardIndex == default)
+            if (DisplayedCardUI != null)
             {
-                // remove from deck
-                var deckCard = droppedCardUI.CardUI.CurrentCard;
-                Player.PlayerRes.Deck.RemoveCard(droppedCardUI.CardUI.CurrentCard);
-                if (DisplayedCardUI == null)
-                {
-                    // add to new set
-                    Player.PlayerRes.AddCardToSet(setId, deckCard, cardIndex, true);
-                }
-                else
-                {
-                    // swap with existing card in set
-                    var existingCard = DisplayedCardUI.CardUI.CurrentCard;
-                    Player.PlayerRes.AddCardToSet(setId, deckCard, cardIndex, true);
-                    Player.PlayerRes.Deck.AddCard(existingCard);
-                }
+                // swap cards between sets
+                Player.PlayerRes.SwapCardsInCollections(droppedCardUI.CollectionId, droppedCardUI.CardUI.Card.Id, setId, DisplayedCardUI.CardUI.Card.Id);
             }
             else
             {
-                if (DisplayedCardUI == null)
-                {
-                    // remove from original set
-                    Player.PlayerRes.RemoveCardFromSet(droppedCardUI.SetId, droppedCardUI.CardIndex);
-                    // add to new set
-                    Player.PlayerRes.AddCardToSet(setId, droppedCardUI.CardUI.CurrentCard, cardIndex, true);
-                }
-                else
-                {
-                    // swap cards between sets
-                    Player.PlayerRes.SwapCardsInSets(droppedCardUI.SetId, droppedCardUI.CardIndex, setId, cardIndex);
-                }
+                // remove from original set
+                Player.PlayerRes.RemoveCardFromCollection(droppedCardUI.CollectionId, droppedCardUI.CardUI.Card.Id);
+                // add to new set
+                Player.PlayerRes.AddCardToSet(setId, droppedCardUI.CardUI.Card, cardIndex);
             }
         }
     }

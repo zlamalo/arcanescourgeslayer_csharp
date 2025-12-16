@@ -6,7 +6,7 @@ public partial class CardUI : Panel
 	private AnimationPlayer cardAnimationPlayer;
 	private AnimationPlayer cooldownAnimationPlayer;
 
-	public Card CurrentCard { get; private set; }
+	public Card Card { get; private set; }
 
 	public override void _Ready()
 	{
@@ -25,9 +25,9 @@ public partial class CardUI : Panel
 
 	public void UpdateCard(Card card)
 	{
-		if (CurrentCard?.Id != card?.Id)
+		if (Card?.Id != card?.Id)
 		{
-			CurrentCard = card;
+			Card = card;
 			GetNode<Sprite2D>("SpriteWrapper/Sprite2D").Texture = card?.Texture;
 			GetNode<Sprite2D>("SpriteWrapper/GlowOverlay").Texture = card?.Texture;
 
@@ -44,7 +44,7 @@ public partial class CardUI : Panel
 
 	public void OnCardCasted(Guid cardId)
 	{
-		if (CurrentCard?.Id == cardId)
+		if (Card?.Id == cardId)
 		{
 			cardAnimationPlayer.Play("CardCasted");
 		}
